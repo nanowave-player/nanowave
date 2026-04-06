@@ -2,7 +2,7 @@
 import { VerticalBox, Button, Palette } from "std-widgets.slint";
 import {SlintAudioPlayer} from "globals.slint";
 
-export component MainWindow inherits Window {
+export component App inherits Window {
     default-font-family: "Lato";
     default-font-size: 16pt;
     in-out property <physical-length> swipe-area-width: 50px;
@@ -11,6 +11,10 @@ export component MainWindow inherits Window {
     in-out property <physical-length> pressed-pos: 0px;
 
     callback touch_event();
+
+    in-out property <string> output_text;
+    callback send_clicked(string);
+
 
 
     // 368 x 552
@@ -46,11 +50,19 @@ export component MainWindow inherits Window {
         interactive: false; // todo: does this work on the lichee??
         VerticalBox {
             padding:0px;
+            input := TextInput {
+                text:"";
+            }
+
             Button {
-                text: "Playtest";
+                text: "Send";
                 clicked => {
-                    SlintAudioPlayer.play_test();
+                    send_clicked(input.text);
                 }
+            }
+
+            Text {
+                text: output_text;
             }
             /*
             if SlintNavigation.route[0] == "home": Home { }

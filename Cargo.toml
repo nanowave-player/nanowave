@@ -4,7 +4,9 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+async-channel = "2.5.0"
 slint = { version = "1.15.0", features = ["backend-linuxkms-noseat", "renderer-software", "compat-1-2"] }
+smol = "2.0.2"
 
 [patch.crates-io]
 media_source = { path = "../media_source/" } # use for local git (see cargo.toml)
