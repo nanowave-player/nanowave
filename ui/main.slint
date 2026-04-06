@@ -1,0 +1,81 @@
+
+import { VerticalBox, Button, Palette } from "std-widgets.slint";
+import {SlintAudioPlayer} from "globals.slint";
+
+export component MainWindow inherits Window {
+    default-font-family: "Lato";
+    default-font-size: 16pt;
+    in-out property <physical-length> swipe-area-width: 50px;
+
+    in-out property <physical-length> cur-pos: 0px;
+    in-out property <physical-length> pressed-pos: 0px;
+
+    callback touch_event();
+
+
+    // 368 x 552
+    width: 368px;
+    height: 552px;
+
+    init => {
+        // load preferences
+        // restore route
+        Palette.color-scheme = ColorScheme.dark; // SlintPreferences.color-scheme;
+
+    }
+
+    SwipeGestureHandler {
+        x: 0;
+        y: 0;
+        width:368px;
+        height:552px;
+        handle-swipe-right: true; //SlintPreferences.enable-gestures;
+        handle-swipe-left: true; // SlintPreferences.enable-gestures;
+        swiped => {
+            if (true /*SlintPreferences.enable-gestures*/) {
+                if (self.current-position.x > self.pressed-position.x) {
+                    // SlintNavigation.back()
+                } else if (self.current-position.x < self.pressed-position.x) {
+                    // SlintNavigation.forward()
+                }
+            }
+        }
+    }
+
+    Flickable {
+        interactive: false; // todo: does this work on the lichee??
+        VerticalBox {
+            padding:0px;
+            Button {
+                text: "Playtest";
+                clicked => {
+                    SlintAudioPlayer.play_test();
+                }
+            }
+            /*
+            if SlintNavigation.route[0] == "home": Home { }
+            if SlintNavigation.route[0] == "audiobooks": Audiobooks { }
+            if SlintNavigation.route[0] == "music": Music { }
+            if SlintNavigation.route[0] == "settings": Settings { }
+            if SlintNavigation.route[0] == "search": Search { }
+            if SlintNavigation.route[0] == "details": Details {
+                item-id: SlintNavigation.route[1];
+            }
+            */
+        }
+
+
+    }
+
+    /*
+    if !SlintPreferences.enable-touch-events: TouchArea {
+        width: 100%;
+        height: 100%;
+        pointer-event(e) => {
+            SlintPreferences.user_interaction();
+            return EventResult.reject;
+            // return false;
+        }
+    }
+    */
+}
