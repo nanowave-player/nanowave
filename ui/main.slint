@@ -13,6 +13,7 @@ export component App inherits Window {
     callback touch_event();
 
     in-out property <string> output_text;
+    in-out property <string> position;
     callback send_clicked(string);
 
 
@@ -63,6 +64,9 @@ export component App inherits Window {
 
             Text {
                 text: output_text;
+            }
+            Text {
+                text: position;
             }
             /*
             if SlintNavigation.route[0] == "home": Home { }

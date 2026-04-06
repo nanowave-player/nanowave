@@ -10,7 +10,8 @@ pub enum PlayerCommand {
 }
 
 pub enum PlayerEvent {
-    Update(String),
+    OutputText(String),
+    Position(String),
 }
 fn main() {
     let app = App::new().unwrap();
@@ -25,8 +26,15 @@ fn main() {
     app.on_send_clicked({
         let tx = ui_to_service_tx.clone();
         move |msg| {
-            let cmd = PlayerCommand::PlayTest("send clicked".into());
-            tx.try_send(cmd).unwrap();
+            println!("send clicked: {}", msg);
+            let cmd = PlayerCommand::PlayTest(msg.into());
+            let send_result = tx.try_send(cmd);
+            if let Err(err) = send_result {
+                println!("send failed: {}", err);
+
+            } else {
+                println!("send success");
+            }
         }
     });
 
@@ -41,9 +49,14 @@ fn main() {
 
                     slint::invoke_from_event_loop(move || {
                         if let Some(app) = app.upgrade() {
-                            match player_event { 
-                                PlayerEvent::Update(msg) => {
+                            match player_event {
+                                PlayerEvent::OutputText(msg) => {
+                                    println!("outputText");
                                     app.set_output_text(msg.into());
+                                },
+                                PlayerEvent::Position(position_as_str) =>  {
+                                    println!("position");
+                                    app.set_position(position_as_str.into());
                                 }
                             }
                         }
