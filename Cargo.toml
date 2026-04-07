@@ -8,9 +8,8 @@ async-channel = "2.5.0"
 chrono = "0.4.44"
 slint = { version = "1.15.0", features = ["backend-linuxkms-noseat", "renderer-software", "compat-1-2"] }
 smol = "2.0.2"
+media_source = { path = "../media_source" } # use for local git (see cargo.toml)
 
-[patch.crates-io]
-media_source = { path = "../media_source/" } # use for local git (see cargo.toml)
 
 [build-dependencies]
 slint-build = "1.15.0"

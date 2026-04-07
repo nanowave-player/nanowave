@@ -1,4 +1,4 @@
-pub mod nanowave_player;
+pub mod nanowave_player_service;
 pub mod nanowave_player_command;
 pub mod nanowave_player_event;
 
@@ -8,6 +8,7 @@ use chrono::{DateTime, Local};
 use smol::Timer;
 use std::future::pending;
 use std::time::{Duration, SystemTime};
+use crate::services::nanowave_player_service::NanowavePlayerService;
 
 pub fn start_services(
     rx: Receiver<NanowavePlayerCommand>,
@@ -20,16 +21,7 @@ pub fn start_services(
             smol::spawn({
                 let tx = tx.clone();
                 async move {
-                    while let Ok(cmd) = rx.recv().await {
-                        println!("Command received...");
-                        match cmd {
-                            NanowavePlayerCommand::PlayTest(msg) => {
-                                println!("PlayTest received: {}", msg);
-                                let response = NanowavePlayerEvent::OutputText(format!("{}: {}", format_time(SystemTime::now()), msg).into());
-                                tx.send(response).await.unwrap();
-                            }
-                        }
-                    }
+                    NanowavePlayerService::new().run(rx, tx).await;
                 }
             }).detach();
 
