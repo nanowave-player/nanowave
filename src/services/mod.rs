@@ -1,14 +1,17 @@
-use crate::{PlayerCommand, PlayerEvent};
+pub mod nanowave_player;
+pub mod nanowave_player_command;
+pub mod nanowave_player_event;
+
+use crate::{NanowavePlayerCommand, NanowavePlayerEvent};
 use async_channel::{Receiver, Sender};
 use chrono::{DateTime, Local};
-use std::future::pending;
-use std::thread::sleep;
-use std::time::{Duration, SystemTime};
 use smol::Timer;
+use std::future::pending;
+use std::time::{Duration, SystemTime};
 
 pub fn start_services(
-    rx: Receiver<PlayerCommand>,
-    tx: Sender<PlayerEvent>,
+    rx: Receiver<NanowavePlayerCommand>,
+    tx: Sender<NanowavePlayerEvent>,
 ) {
     std::thread::spawn(move || {
         smol::block_on(async move {
@@ -20,9 +23,9 @@ pub fn start_services(
                     while let Ok(cmd) = rx.recv().await {
                         println!("Command received...");
                         match cmd {
-                            PlayerCommand::PlayTest(msg) => {
+                            NanowavePlayerCommand::PlayTest(msg) => {
                                 println!("PlayTest received: {}", msg);
-                                let response = PlayerEvent::OutputText(format!("{}: {}", format_time(SystemTime::now()), msg).into());
+                                let response = NanowavePlayerEvent::OutputText(format!("{}: {}", format_time(SystemTime::now()), msg).into());
                                 tx.send(response).await.unwrap();
                             }
                         }
@@ -35,7 +38,7 @@ pub fn start_services(
                 async move {
                     loop {
                         let now = SystemTime::now();
-                        let _r = tx.send(PlayerEvent::Position(format_time(now))).await;
+                        let _r = tx.send(NanowavePlayerEvent::Position(format_time(now))).await;
                         Timer::after(Duration::from_secs(1)).await;
                     }
                 }
