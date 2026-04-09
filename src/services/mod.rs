@@ -2,7 +2,7 @@ pub mod nanowave_player_service;
 pub mod nanowave_player_command;
 pub mod nanowave_player_event;
 
-use crate::{NanowavePlayerCommand, NanowavePlayerEvent};
+use crate::{Cli, NanowavePlayerCommand, NanowavePlayerEvent, ServiceConfig};
 use async_channel::{Receiver, Sender};
 use chrono::{DateTime, Local};
 use smol::Timer;
@@ -10,10 +10,24 @@ use std::future::pending;
 use std::time::{Duration, SystemTime};
 use crate::services::nanowave_player_service::NanowavePlayerService;
 
+fn empty_string_fallback(value: String, fallback_value: &str) -> String {
+    if value.is_empty() {
+        value
+    } else {
+        fallback_value.to_string()
+    }
+}
+
 pub fn start_services(
+    config: ServiceConfig,
     rx: Receiver<NanowavePlayerCommand>,
     tx: Sender<NanowavePlayerEvent>,
 ) {
+
+    let audio_device = empty_string_fallback(config.audio_device, "").clone();
+    let sample_file = empty_string_fallback(config.sample_file, "").clone();
+
+
     std::thread::spawn(move || {
         smol::block_on(async move {
 
@@ -21,7 +35,7 @@ pub fn start_services(
             smol::spawn({
                 let tx = tx.clone();
                 async move {
-                    NanowavePlayerService::new().run(rx, tx).await;
+                    NanowavePlayerService::new(audio_device, sample_file).run(rx, tx).await;
                 }
             }).detach();
 
