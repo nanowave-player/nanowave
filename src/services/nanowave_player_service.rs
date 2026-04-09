@@ -84,7 +84,7 @@ impl NanowavePlayerService {
                     sink.append(source);
                     sink.play();
                     // sleep(Duration::from_millis(200));
-                    Timer::after(Duration::from_secs(1)).await;
+                    Timer::after(Duration::from_millis(200)).await;
                     sink.stop();
                     sink.clear();
                 }

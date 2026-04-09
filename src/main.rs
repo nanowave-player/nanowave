@@ -5,10 +5,9 @@ use crate::services::nanowave_player_command::NanowavePlayerCommand;
 use crate::services::nanowave_player_event::NanowavePlayerEvent;
 use crate::services::start_services;
 
-use tracing::{debug, error, info, trace, warn, Level};
+// use tracing::{debug, error, info, trace, warn, Level};
 use tracing_appender::rolling::{RollingFileAppender, Rotation};
 use tracing_subscriber::{fmt, EnvFilter};
-use tracing_subscriber::fmt::writer::MakeWriterExt;
 
 slint::include_modules!();
 
@@ -25,7 +24,7 @@ struct Cli {
     #[arg(long, default_value = "")]
     audio_device: String,
 
-    #[arg(long, default_value = "")]
+    #[arg(long, default_value = "media/sample-3s.wav")]
     sample_file: String,
 }
 

@@ -2,13 +2,13 @@ pub mod nanowave_player_service;
 pub mod nanowave_player_command;
 pub mod nanowave_player_event;
 
-use crate::{Cli, NanowavePlayerCommand, NanowavePlayerEvent, ServiceConfig};
+use crate::services::nanowave_player_service::NanowavePlayerService;
+use crate::{NanowavePlayerCommand, NanowavePlayerEvent, ServiceConfig};
 use async_channel::{Receiver, Sender};
 use chrono::{DateTime, Local};
 use smol::Timer;
 use std::future::pending;
 use std::time::{Duration, SystemTime};
-use crate::services::nanowave_player_service::NanowavePlayerService;
 
 fn empty_string_fallback(value: String, fallback_value: &str) -> String {
     if value.is_empty() {
