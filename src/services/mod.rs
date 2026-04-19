@@ -1,6 +1,6 @@
-pub mod nanowave_player_service;
 pub mod nanowave_player_command;
 pub mod nanowave_player_event;
+pub mod nanowave_player_service;
 
 use crate::services::nanowave_player_service::NanowavePlayerService;
 use crate::{NanowavePlayerCommand, NanowavePlayerEvent, ServiceConfig};
@@ -12,9 +12,9 @@ use std::time::{Duration, SystemTime};
 
 fn empty_string_fallback(value: String, fallback_value: &str) -> String {
     if value.is_empty() {
-        value
-    } else {
         fallback_value.to_string()
+    } else {
+        value
     }
 }
 
@@ -23,32 +23,35 @@ pub fn start_services(
     rx: Receiver<NanowavePlayerCommand>,
     tx: Sender<NanowavePlayerEvent>,
 ) {
-
     let audio_device = empty_string_fallback(config.audio_device, "").clone();
     let sample_file = empty_string_fallback(config.sample_file, "").clone();
 
-
     std::thread::spawn(move || {
         smol::block_on(async move {
-
             // Service 1: Echo service
             smol::spawn({
                 let tx = tx.clone();
                 async move {
-                    NanowavePlayerService::new(audio_device, sample_file).run(rx, tx).await;
+                    NanowavePlayerService::new(audio_device, sample_file)
+                        .run(rx, tx)
+                        .await;
                 }
-            }).detach();
+            })
+            .detach();
 
             // Service 2: Logger service
             smol::spawn({
                 async move {
                     loop {
                         let now = SystemTime::now();
-                        let _r = tx.send(NanowavePlayerEvent::Position(format_time(now))).await;
+                        let _r = tx
+                            .send(NanowavePlayerEvent::Position(format_time(now)))
+                            .await;
                         Timer::after(Duration::from_secs(1)).await;
                     }
                 }
-            }).detach();
+            })
+            .detach();
 
             // Keep executor alive forever
             pending::<()>().await;

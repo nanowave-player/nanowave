@@ -3,7 +3,7 @@ fn main() {
         .embed_resources(slint_build::EmbedResourcesKind::EmbedForSoftwareRenderer);
 
     slint_build::compile_with_config(
-        "ui/main.slint",
+        "ui/app.slint",
         config,
     ).expect("Slint build failed (build.rs)");
 }

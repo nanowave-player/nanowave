@@ -32,7 +32,7 @@ impl NanowavePlayerService {
                 match cmd {
                     NanowavePlayerCommand::PlayTest(msg) => {
                         println!("PlayTest received: {}", msg);
-                        Self::playtest(self.audio_device.clone(), self.sample_file.clone()).await;
+                        let _result = Self::playtest(self.audio_device.clone(), self.sample_file.clone()).await;
                         let response = NanowavePlayerEvent::OutputText(format!("{}: {}", format_time(SystemTime::now()), msg).into());
                         tx.send(response).await.unwrap();
                     }
@@ -41,7 +41,7 @@ impl NanowavePlayerService {
         }
     }
     async fn playtest(audio_device: String, audio_file: String) -> Result<(), slint::PlatformError>{
-
+        debug!("playtest executing");
 
         let device_ids = vec![audio_device];
 
@@ -53,6 +53,7 @@ impl NanowavePlayerService {
             .into_iter()
             .filter_map(|s| DeviceId::from_str(&s).ok())
             .collect();
+        debug!("device_ids: {:?}", device_ids);
 
         for device_id in device_ids {
             let dev = host.device_by_id(&device_id);

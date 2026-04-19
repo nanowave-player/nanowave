@@ -1,72 +1,44 @@
 pub mod services;
+pub mod cli;
+pub mod tracing;
+pub mod service_config;
 
+use ::tracing::{debug};
 use clap::Parser;
+
 use crate::services::nanowave_player_command::NanowavePlayerCommand;
 use crate::services::nanowave_player_event::NanowavePlayerEvent;
 use crate::services::start_services;
-
+use crate::cli::Cli;
 // use tracing::{debug, error, info, trace, warn, Level};
 use tracing_appender::rolling::{RollingFileAppender, Rotation};
 use tracing_subscriber::{fmt, EnvFilter};
+use crate::service_config::ServiceConfig;
+use crate::tracing::init_tracing;
 
 slint::include_modules!();
 
-
-
-#[derive(Parser, Debug)]
-#[command(author, version, about)]
-struct Cli {
-    /// Sets the environment filter
-    #[arg(long, default_value = "warn,nanowave_ui=trace")]
-    env_filter: String,
-
-    /// Sets the environment filter
-    #[arg(long, default_value = "")]
-    audio_device: String,
-
-    #[arg(long, default_value = "media/sample-3s.wav")]
-    sample_file: String,
-}
-
-#[derive(Clone, Debug)]
-struct ServiceConfig {
-    audio_device: String,
-    sample_file: String,
-}
-
-impl ServiceConfig {
-    pub fn new(audio_device: String, sample_file: String) -> Self {
-        Self { audio_device, sample_file }
-    }
-}
-
-fn init_tracing(env_filter: String) {
-    let file_appender = RollingFileAppender::new(Rotation::DAILY, "logs", "nanowave");
-    let filter = EnvFilter::new(
-        env_filter
-    );
-
-    let subscriber = fmt()
-        .with_writer(file_appender)
-        .with_env_filter(filter)
-        .with_ansi(false)
-        .finish();
-
-    tracing::subscriber::set_global_default(subscriber)
-        .expect("Failed to set global subscriber");
-
-    /*
-    trace!("trace test");
-    debug!("debug test");
-    info!("info test");
-    warn!("warn test");
-    error!("error test");
-
-     */
-}
+const DEFAULT_SCALE: f32 = 1.0;
 
 fn main() {
     let cli = Cli::parse();
+
+    // this does not seem to have any effect on UI elements?!
+    let scale = if let Some(ui_scale) = cli.ui_scale && ui_scale > 0.0 {
+        ui_scale
+    } else {
+        DEFAULT_SCALE
+    };
+    if scale != 1.0
+    {
+        // Must be set before any Slint window is created.
+        // SAFETY: single-threaded at this point in startup.
+        unsafe {
+            std::env::set_var("SLINT_SCALE_FACTOR", scale.to_string());
+        }
+    }
+
+    debug!("env_filter={}\naudio_device={}\nsample_file={}", cli.env_filter, cli.audio_device, cli.sample_file);
     init_tracing(cli.env_filter);
 
     let app = App::new().unwrap();
@@ -124,11 +96,3 @@ fn main() {
 
     app.run().unwrap();
 }
-
-// fn main() -> Result<(), slint::PlatformError> {
-//     let (tx, rx) = mpsc::channel::<PlayerCommand>();
-//
-//     let app = App::new()?;
-//
-//     app.run()
-// }
