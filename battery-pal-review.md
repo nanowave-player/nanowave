@@ -30,7 +30,6 @@ Check the following aspects while no battery is attached:
 ### Power to Battery switch
 - [ ] General stability
 - [ ] Multiple quick switches
-- [ ] 
 
 ### Battery Gauge tests (MAX17043 - later maybe MAX17048, MAX17055 or BQ27441)
 - [ ] General connectivity
