@@ -6,19 +6,26 @@ edition = "2024"
 [dependencies]
 async-channel = "2.5.0"
 chrono = "0.4.44"
-slint = { version = "1.15.0", features = ["backend-linuxkms-noseat", "renderer-software", "compat-1-2"] }
+slint = { git = "https://github.com/sandreas/slint.git", branch="1.6.1-reapply-color-fix", features = ["backend-linuxkms-noseat", "renderer-software"] }
 smol = "2.0.2"
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["fmt", "env-filter"] }
 tracing-appender = "0.2"
 clap = { version = "4.6.0", features = ["derive"] }
 
+rodio = { git = "https://github.com/RustAudio/rodio.git", branch="master" }
 media_source = { path = "../media_source" } # use for local git (see cargo.toml)
-cpal = { path = "../../sandreas/cpal" }
-rodio = { path = "../../sandreas/rodio" }
+
+# cpal = { path = "../../sandreas/cpal" }
+# rodio = { path = "../../sandreas/rodio" }
+
+
+[patch.crates-io]
+# cpal = { git = "https://github.com/RustAudio/cpal.git", branch="master" }
+
 
 [build-dependencies]
-slint-build = "1.15.0"
+slint-build = "1.16.1"
 
 [profile.release]
 lto = true
