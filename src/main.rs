@@ -22,7 +22,101 @@ const DEFAULT_SCALE: f32 = 1.0;
 
 fn main() {
     let cli = Cli::parse();
+    scale_ui(&cli);
+    debug_cli(&cli);
+    init_tracing(cli.env_filter);
 
+    let app = App::new().unwrap();
+    // let (ui_to_service_tx, ui_to_service_rx) = async_channel::unbounded::<NanowavePlayerCommand>();
+    // let (service_to_ui_tx, service_to_ui_rx) = async_channel::unbounded::<NanowavePlayerEvent>();
+
+
+    let (ui_to_service_tx, mut ui_to_service_rx) = tokio::sync::mpsc::unbounded_channel::<NanowavePlayerCommand>();
+    let (service_to_ui_tx, mut service_to_ui_rx) = tokio::sync::mpsc::unbounded_channel::<NanowavePlayerEvent>();
+
+    let runtime = tokio::runtime::Builder::new_multi_thread()
+        .enable_all()
+        .build()
+        .unwrap();
+
+    let handle = runtime.handle().clone();
+
+    // Start background services
+    start_services(ServiceConfig::new(cli.audio_device.clone(), cli.sample_file.clone()), &mut ui_to_service_rx, service_to_ui_tx, handle.clone());
+
+    // UI → async (button click)
+    app.on_send_clicked({
+        let tx = ui_to_service_tx.clone();
+        move |msg| {
+            println!("send clicked: {}", msg);
+            let cmd = NanowavePlayerCommand::PlayTest(msg.into());
+            let send_result = tx.send(cmd);
+            if let Err(err) = send_result {
+                println!("send failed: {}", err);
+
+            } else {
+                println!("send success");
+            }
+        }
+    });
+
+
+    let app_weak = app.as_weak();
+
+    handle.spawn(async move {
+        while let Some(player_event) = service_to_ui_rx.recv().await {
+            let app = app_weak.clone();
+
+            slint::invoke_from_event_loop(move || {
+                if let Some(app) = app.upgrade() {
+                    match player_event {
+                        NanowavePlayerEvent::OutputText(msg) => {
+                            app.set_output_text(msg.into());
+                        }
+
+                        NanowavePlayerEvent::Position(position) => {
+                            app.set_position(position.into());
+                        }
+                    }
+                }
+            })
+                .unwrap();
+        }
+    });
+
+    /*
+    tokio::spawn(async move {
+        while let Ok(player_event) = service_to_ui_rx.recv().await {
+            let app = app_weak.clone();
+
+            slint::invoke_from_event_loop(move || {
+                if let Some(app) = app.upgrade() {
+                    match player_event {
+                        NanowavePlayerEvent::OutputText(msg) => {
+                            println!("outputText");
+                            app.set_output_text(msg.into());
+                        }
+
+                        NanowavePlayerEvent::Position(position_as_str) => {
+                            println!("position");
+                            app.set_position(position_as_str.into());
+                        }
+                    }
+                }
+            })
+                .unwrap();
+        }
+    });
+    */
+
+    app.run().unwrap();
+}
+
+fn debug_cli(cli: &Cli) {
+    debug!("env_filter={}\naudio_device={}\nsample_file={}", cli.env_filter, cli.audio_device, cli.sample_file);
+}
+
+fn scale_ui(cli: &Cli) {
     // this does not seem to have any effect on UI elements?!
     let scale = if let Some(ui_scale) = cli.ui_scale && ui_scale > 0.0 {
         ui_scale
@@ -37,62 +131,4 @@ fn main() {
             std::env::set_var("SLINT_SCALE_FACTOR", scale.to_string());
         }
     }
-
-    debug!("env_filter={}\naudio_device={}\nsample_file={}", cli.env_filter, cli.audio_device, cli.sample_file);
-    init_tracing(cli.env_filter);
-
-    let app = App::new().unwrap();
-
-    let (ui_to_service_tx, ui_to_service_rx) = async_channel::unbounded::<NanowavePlayerCommand>();
-    let (service_to_ui_tx, service_to_ui_rx) = async_channel::unbounded::<NanowavePlayerEvent>();
-
-    // Start background services
-    start_services(ServiceConfig::new(cli.audio_device.clone(), cli.sample_file.clone()), ui_to_service_rx, service_to_ui_tx);
-
-    // UI → async (button click)
-    app.on_send_clicked({
-        let tx = ui_to_service_tx.clone();
-        move |msg| {
-            println!("send clicked: {}", msg);
-            let cmd = NanowavePlayerCommand::PlayTest(msg.into());
-            let send_result = tx.try_send(cmd);
-            if let Err(err) = send_result {
-                println!("send failed: {}", err);
-
-            } else {
-                println!("send success");
-            }
-        }
-    });
-
-
-        let app_weak = app.as_weak();
-
-    std::thread::spawn(move || {
-        smol::block_on(async move {
-
-
-            while let Ok(player_event) = service_to_ui_rx.recv().await {
-                let app = app_weak.clone();
-
-                slint::invoke_from_event_loop(move || {
-                    if let Some(app) = app.upgrade() {
-                        match player_event {
-                            NanowavePlayerEvent::OutputText(msg) => {
-                                println!("outputText");
-                                app.set_output_text(msg.into());
-                            },
-                            NanowavePlayerEvent::Position(position_as_str) =>  {
-                                println!("position");
-                                app.set_position(position_as_str.into());
-                            }
-                        }
-                    }
-                }).unwrap();
-            }
-        });
-    });
-
-
-    app.run().unwrap();
 }

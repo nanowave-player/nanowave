@@ -7,6 +7,7 @@ use rodio::cpal::{BufferSize, DeviceId};
 use rodio::cpal::traits::HostTrait;
 use rodio::{DeviceSinkBuilder, DeviceTrait, Source};
 use smol::Timer;
+use tokio::sync::mpsc::{UnboundedReceiver, UnboundedSender};
 use tracing::{debug, warn};
 use crate::services::format_time;
 use crate::services::nanowave_player_command::NanowavePlayerCommand;
@@ -25,16 +26,16 @@ impl NanowavePlayerService {
         }
     }
 
-    pub async fn run(&self, rx: Receiver<NanowavePlayerCommand>, tx: Sender<NanowavePlayerEvent>) {
+    pub async fn run(&self,  rx: &mut UnboundedReceiver<NanowavePlayerCommand>, tx: UnboundedSender<NanowavePlayerEvent>) {
         loop {
-            while let Ok(cmd) = rx.recv().await {
+            while let Some(cmd) = rx.recv().await {
                 println!("Command received...");
                 match cmd {
                     NanowavePlayerCommand::PlayTest(msg) => {
                         println!("PlayTest received: {}", msg);
                         let _result = Self::playtest(self.audio_device.clone(), self.sample_file.clone()).await;
                         let response = NanowavePlayerEvent::OutputText(format!("{}: {}", format_time(SystemTime::now()), msg).into());
-                        tx.send(response).await.unwrap();
+                        let send_result = tx.send(response);
                     }
                 }
             }

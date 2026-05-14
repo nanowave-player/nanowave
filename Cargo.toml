@@ -8,6 +8,7 @@ async-channel = "2.5.0"
 chrono = "0.4.44"
 slint = { git = "https://github.com/sandreas/slint.git", branch="1.6.1-reapply-color-fix", features = ["backend-linuxkms-noseat", "renderer-software"] }
 smol = "2.0.2"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "time"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["fmt", "env-filter"] }
 tracing-appender = "0.2"
