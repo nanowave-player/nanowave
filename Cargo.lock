@@ -1105,7 +1105,7 @@ checksum = "7704b5fdd17b18ae31c4c1da5a2e0305a2bf17b5249300a9ee9ed7b72114c636"
 [[package]]
 name = "cpal"
 version = "0.18.0"
-source = "git+https://github.com/RustAudio/cpal#bce156d8a3ea5999f763bb831342fb2f6ed23db1"
+source = "git+https://github.com/RustAudio/cpal#cc1d221fd8157ee2d8f3409f12414a2b7c5d516e"
 dependencies = [
  "alsa",
  "audio_thread_priority",
@@ -1629,28 +1629,6 @@ dependencies = [
 
 [[package]]
 name = "fontique"
-version = "0.8.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "23358480a54a886d51b306718d5ca743fdfe238e5df38ef650f4e72f29c5d9e9"
-dependencies = [
- "hashbrown 0.16.1",
- "linebender_resource_handle",
- "memmap2",
- "objc2 0.6.4",
- "objc2-core-foundation",
- "objc2-core-text",
- "objc2-foundation 0.3.2",
- "parlance",
- "read-fonts 0.37.0",
- "roxmltree",
- "smallvec",
- "windows",
- "windows-core",
- "yeslogic-fontconfig-sys",
-]
-
-[[package]]
-name = "fontique"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7c20b425addb8661e97fe1d51c4d8bcec3ec29ed6ad0db983976a7521276b8f7"
@@ -2086,7 +2064,7 @@ dependencies = [
  "drm",
  "gbm",
  "glutin",
- "i-slint-common 1.17.0",
+ "i-slint-common",
  "i-slint-core",
  "i-slint-renderer-femtovg",
  "i-slint-renderer-software",
@@ -2105,7 +2083,7 @@ dependencies = [
  "cfg-if",
  "i-slint-backend-linuxkms",
  "i-slint-backend-winit",
- "i-slint-common 1.17.0",
+ "i-slint-common",
  "i-slint-core",
  "i-slint-core-macros",
  "i-slint-renderer-femtovg",
@@ -2127,7 +2105,7 @@ dependencies = [
  "futures",
  "glutin",
  "glutin-winit",
- "i-slint-common 1.17.0",
+ "i-slint-common",
  "i-slint-core",
  "i-slint-core-macros",
  "i-slint-renderer-femtovg",
@@ -2159,24 +2137,11 @@ dependencies = [
 
 [[package]]
 name = "i-slint-common"
-version = "1.16.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "40cae5cd0a81ce044029ac303256e025f98a4c59495b5189fc22b588da094e01"
-dependencies = [
- "derive_more",
- "fontique 0.8.0",
- "htmlparser",
- "pulldown-cmark",
- "skrifa 0.40.0",
-]
-
-[[package]]
-name = "i-slint-common"
 version = "1.17.0"
 source = "git+https://github.com/sandreas/slint.git?branch=1.6.1-reapply-color-fix#f43f37e1fa1b11cf7c819a0b05a2d00c72c4997e"
 dependencies = [
  "derive_more",
- "fontique 0.9.0",
+ "fontique",
  "htmlparser",
  "pulldown-cmark",
  "skrifa 0.42.1",
@@ -2184,15 +2149,14 @@ dependencies = [
 
 [[package]]
 name = "i-slint-compiler"
-version = "1.16.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a7b7f9834faf2a62cc36f01decc7c683e66bb0861b53511723c3da9ad914d9bb"
+version = "1.17.0"
+source = "git+https://github.com/sandreas/slint.git?branch=1.6.1-reapply-color-fix#f43f37e1fa1b11cf7c819a0b05a2d00c72c4997e"
 dependencies = [
  "annotate-snippets",
  "by_address",
  "data-url",
  "derive_more",
- "i-slint-common 1.16.1",
+ "i-slint-common",
  "icu_normalizer",
  "image",
  "itertools 0.14.0",
@@ -2206,36 +2170,10 @@ dependencies = [
  "resvg",
  "rowan",
  "rspolib",
- "skrifa 0.40.0",
+ "skrifa 0.42.1",
  "smol_str 0.3.6",
  "strum",
  "swash",
- "typed-index-collections",
- "unicode-segmentation",
- "url",
-]
-
-[[package]]
-name = "i-slint-compiler"
-version = "1.17.0"
-source = "git+https://github.com/sandreas/slint.git?branch=1.6.1-reapply-color-fix#f43f37e1fa1b11cf7c819a0b05a2d00c72c4997e"
-dependencies = [
- "annotate-snippets",
- "by_address",
- "data-url",
- "derive_more",
- "i-slint-common 1.17.0",
- "icu_normalizer",
- "itertools 0.14.0",
- "linked_hash_set",
- "lyon_extra",
- "lyon_path",
- "num_enum",
- "proc-macro2",
- "quote",
- "rowan",
- "smol_str 0.3.6",
- "strum",
  "typed-index-collections",
  "unicode-segmentation",
  "url",
@@ -2254,7 +2192,7 @@ dependencies = [
  "const-field-offset",
  "derive_more",
  "euclid",
- "i-slint-common 1.17.0",
+ "i-slint-common",
  "i-slint-core-macros",
  "icu_normalizer",
  "image",
@@ -2308,7 +2246,7 @@ dependencies = [
  "derive_more",
  "femtovg",
  "glow",
- "i-slint-common 1.17.0",
+ "i-slint-common",
  "i-slint-core",
  "i-slint-core-macros",
  "imgref",
@@ -2332,7 +2270,7 @@ dependencies = [
  "derive_more",
  "glow",
  "glutin",
- "i-slint-common 1.17.0",
+ "i-slint-common",
  "i-slint-core",
  "i-slint-core-macros",
  "lyon_path",
@@ -2364,7 +2302,7 @@ dependencies = [
  "clru",
  "derive_more",
  "euclid",
- "i-slint-common 1.17.0",
+ "i-slint-common",
  "i-slint-core",
  "integer-sqrt",
  "lyon_path",
@@ -3790,7 +3728,7 @@ version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8fad031076f48f0d4d85ce1aea9b94b4e715a4d636a030a123038f8f5b5e4343"
 dependencies = [
- "fontique 0.9.0",
+ "fontique",
  "harfrust",
  "hashbrown 0.17.1",
  "icu_normalizer",
@@ -4746,7 +4684,7 @@ source = "git+https://github.com/sandreas/slint.git?branch=1.6.1-reapply-color-f
 dependencies = [
  "const-field-offset",
  "i-slint-backend-selector",
- "i-slint-common 1.17.0",
+ "i-slint-common",
  "i-slint-core",
  "i-slint-core-macros",
  "i-slint-renderer-femtovg",
@@ -4761,13 +4699,12 @@ dependencies = [
 
 [[package]]
 name = "slint-build"
-version = "1.16.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a73854b9adf81fa1600b46df488ffc3796400e8e9b40d504a94a36b55c8f3d0a"
+version = "1.17.0"
+source = "git+https://github.com/sandreas/slint.git?branch=1.6.1-reapply-color-fix#f43f37e1fa1b11cf7c819a0b05a2d00c72c4997e"
 dependencies = [
  "derive_more",
- "fontique 0.8.0",
- "i-slint-compiler 1.16.1",
+ "fontique",
+ "i-slint-compiler",
  "spin_on",
  "toml_edit",
 ]
@@ -4777,7 +4714,7 @@ name = "slint-macros"
 version = "1.17.0"
 source = "git+https://github.com/sandreas/slint.git?branch=1.6.1-reapply-color-fix#f43f37e1fa1b11cf7c819a0b05a2d00c72c4997e"
 dependencies = [
- "i-slint-compiler 1.17.0",
+ "i-slint-compiler",
  "proc-macro2",
  "quote",
  "spin_on",
