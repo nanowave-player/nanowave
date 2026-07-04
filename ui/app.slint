@@ -19,8 +19,8 @@ export component App inherits Window {
 
 
     // 368 x 552
-    width: 368px;
-    height: 552px;
+    // width: 368px;
+    // height: 552px;
 
     init => {
         // load preferences
@@ -32,8 +32,8 @@ export component App inherits Window {
     SwipeGestureHandler {
         x: 0;
         y: 0;
-        width:368px;
-        height:552px;
+        width: root.width; // 368px;
+        height: root.height; // 552px;
         handle-swipe-right: true; //SlintPreferences.enable-gestures;
         handle-swipe-left: true; // SlintPreferences.enable-gestures;
         swiped => {

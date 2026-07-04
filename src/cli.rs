@@ -4,6 +4,9 @@ use clap::Parser;
 #[command(author, version, about)]
 pub struct Cli {
     pub ui_scale: Option<f32>,
+    pub ui_width: Option<u32>,
+    pub ui_height: Option<u32>,
+
     /// Sets the environment filter
     #[arg(long, default_value = "warn,nanowave=trace")]
     pub env_filter: String,

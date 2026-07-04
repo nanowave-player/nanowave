@@ -2,7 +2,7 @@ use tracing::subscriber;
 use tracing_appender::rolling::{RollingFileAppender, Rotation};
 use tracing_subscriber::{fmt, EnvFilter};
 
-pub fn init_tracing(env_filter: String) {
+pub fn init_tracing(env_filter: &str) {
     let file_appender = RollingFileAppender::new(Rotation::DAILY, "logs", "nanowave");
     let filter = EnvFilter::new(
         env_filter

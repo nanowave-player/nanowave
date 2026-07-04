@@ -15,9 +15,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/cli.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/nanowave_player_service.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/nanowave_player_service.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tracing.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/tracing.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/app.slint" beforeDir="false" afterPath="$PROJECT_DIR$/ui/app.slint" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,10 +32,10 @@
   <component name="MacroExpansionManager">
     <option name="directoryName" value="TFDXNSBi" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6,
-  "fromUser": false
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6,
+  &quot;fromUser&quot;: false
+}</component>
   <component name="ProjectId" id="3DUa1H5iTge9AzMNkevTSfIaQLq" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -51,9 +52,16 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/andreas/projects/nanowave-player/nanowave",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
     "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
     "org.rust.first.attach.projects": "true",
+    "settings.editor.selected.configurable": "preferences.keymap",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -62,7 +70,9 @@
       <option name="buildProfileId" value="dev" />
       <option name="command" value="run --package nanowave --bin nanowave" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <envs />
+      <envs>
+        <env name="SLINT_BACKEND" value="winit-software" />
+      </envs>
       <option name="emulateTerminal" value="true" />
       <option name="channel" value="DEFAULT" />
       <option name="requiredFeatures" value="true" />
@@ -93,6 +103,13 @@
       <option name="presentableId" value="Default" />
       <updated>1778338889134</updated>
       <workItem from="1778338891508" duration="6789000" />
+      <workItem from="1779018182578" duration="72000" />
+      <workItem from="1779018412103" duration="740000" />
+      <workItem from="1779189242193" duration="71000" />
+      <workItem from="1781107660420" duration="644000" />
+      <workItem from="1781138626717" duration="1625000" />
+      <workItem from="1782895439749" duration="61000" />
+      <workItem from="1783152402817" duration="3433000" />
     </task>
     <servers />
   </component>
