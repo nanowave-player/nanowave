@@ -10,13 +10,7 @@ use std::time::{Duration, SystemTime};
 use tokio::runtime::{Handle, Runtime};
 use tokio::sync::broadcast::{Receiver, Sender};
 
-fn empty_string_fallback(value: String, fallback_value: &str) -> String {
-    if value.is_empty() {
-        fallback_value.to_string()
-    } else {
-        value
-    }
-}
+
 
 pub fn start_services(
     config: ServiceConfig,
@@ -91,7 +85,7 @@ pub async fn background_services(
 
 
     /*
-    std::threbackground_tasksad::spawn(move || {
+    std::thread::spawn(move || {
         smol::block_on(async move {
             // Service 1: Echo service
             smol::spawn({
@@ -124,6 +118,14 @@ pub async fn background_services(
     });
 
      */
+}
+
+fn empty_string_fallback(value: String, fallback_value: &str) -> String {
+    if value.is_empty() {
+        fallback_value.to_string()
+    } else {
+        value
+    }
 }
 
 fn format_time(t: SystemTime) -> String {
