@@ -3,6 +3,7 @@ pub mod cli;
 pub mod tracing;
 pub mod service_config;
 
+use std::sync::Arc;
 use ::tracing::{debug};
 use clap::Parser;
 use slint::{PhysicalSize, WindowSize};
@@ -18,6 +19,8 @@ use crate::tracing::init_tracing;
 
 slint::include_modules!();
 
+const BROADCAST_CHANNEL_BUFFER_SIZE: usize = 64;
+
 const UI_DEFAULT_SCALE: f32 = 1.0;
 const UI_DEFAULT_WIDTH:u32 = 368;
 const UI_DEFAULT_HEIGHT:u32 = 552;
@@ -32,28 +35,26 @@ fn main() {
     let app = App::new().unwrap();
     size_window(&cli, &app);
 
-    let (command_tx, mut command_rx) = tokio::sync::mpsc::unbounded_channel::<NanowavePlayerCommand>();
-    let (event_tx, mut event_rx) = tokio::sync::mpsc::unbounded_channel::<NanowavePlayerEvent>();
+    let (command_tx, command_rx) = tokio::sync::broadcast::channel::<NanowavePlayerCommand>(BROADCAST_CHANNEL_BUFFER_SIZE);
+    let (event_tx, event_rx) = tokio::sync::broadcast::channel::<NanowavePlayerEvent>(BROADCAST_CHANNEL_BUFFER_SIZE);
 
-    // this uses only current thread to save CPU for embedded
+    /*
+ // for modern machines
+ let runtime = tokio::runtime::Builder::new_multi_thread()
+ .enable_all()
+ .build()
+ .unwrap();
+  */
+
     // could be even better to use enable_io().enable_time() instead of enable_all()
-    let runtime = tokio::runtime::Builder::new_current_thread()
+    // new_multi_thread is required, when UI and start_services should run simultaneously. Otherwise one of the
+    // threads won't do work.
+    let runtime = tokio::runtime::Builder::new_multi_thread()
         .enable_all()
         .build()
         .unwrap();
-
-    /*
-    // for modern machines
-    let runtime = tokio::runtime::Builder::new_multi_thread()
-    .enable_all()
-    .build()
-    .unwrap();
-     */
-
     let handle = runtime.handle().clone();
-
-    // Start background services
-    start_services(ServiceConfig::new(cli.audio_device.clone(), cli.sample_file.clone()), &mut command_rx, event_tx, handle.clone());
+    start_services(ServiceConfig::new(cli.audio_device.clone(), cli.sample_file.clone()),  event_tx.clone(), command_rx.resubscribe(), handle.clone());
 
     // UI → async (button click)
     app.on_send_clicked({
@@ -73,9 +74,61 @@ fn main() {
 
     let app_weak = app.as_weak();
 
+    // let (event_tx, event_rx) = tokio::sync::broadcast::channel::<NanowavePlayerEvent>(BROADCAST_CHANNEL_BUFFER_SIZE);
     handle.spawn(async move {
-        while let Some(player_event) = event_rx.recv().await {
+        let event_rx = &mut event_rx.resubscribe();
+
+
+        let app = app_weak.clone();
+        /*
+        loop {
+            match event_rx.recv().await {
+                Ok(player_event) => {
+
+                    // Event verarbeiten
+                }
+                Err(tokio::sync::broadcast::error::RecvError::Lagged(n)) => {
+                    eprintln!("{} Events verpasst", n);
+                    // weiterlaufen
+                }
+                Err(tokio::sync::broadcast::error::RecvError::Closed) => {
+                    eprintln!("Broadcast wurde geschlossen");
+                    break;
+                }
+            }
+        }
+        */
+
+        loop {
+            match event_rx.recv().await {
+                Ok(player_event) => {
+                    let app = app.clone();
+
+                    slint::invoke_from_event_loop(move || {
+                        if let Some(app) = app.upgrade() {
+                            match player_event {
+                                NanowavePlayerEvent::OutputText(msg) => {
+                                    app.set_output_text(msg.into());
+                                }
+                                NanowavePlayerEvent::Position(pos) => {
+                                    app.set_position(pos.into());
+                                }
+                            }
+                        }
+                    }).unwrap();
+                }
+
+                Err(tokio::sync::broadcast::error::RecvError::Lagged(n)) => {
+                    eprintln!("Lagged by {n} messages");
+                }
+
+                Err(tokio::sync::broadcast::error::RecvError::Closed) => break,
+            }
+        }
+        /*
+        while let Ok(player_event) = event_rx.recv().await {
             let app = app_weak.clone();
+
 
             slint::invoke_from_event_loop(move || {
                 if let Some(app) = app.upgrade() {
@@ -91,7 +144,7 @@ fn main() {
                 }
             })
                 .unwrap();
-        }
+        }*/
     });
 
     /*

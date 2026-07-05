@@ -13,12 +13,10 @@
   <component name="ChangeListManager">
     <list default="true" id="da7600e2-a4da-4669-a586-ae42a70de8de" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cli.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/cli.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tracing.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/tracing.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/app.slint" beforeDir="false" afterPath="$PROJECT_DIR$/ui/app.slint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/nanowave_player_command.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/nanowave_player_command.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/nanowave_player_event.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/nanowave_player_event.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +107,7 @@
       <workItem from="1781107660420" duration="644000" />
       <workItem from="1781138626717" duration="1625000" />
       <workItem from="1782895439749" duration="61000" />
-      <workItem from="1783152402817" duration="3433000" />
+      <workItem from="1783152402817" duration="16686000" />
     </task>
     <servers />
   </component>
