@@ -10,12 +10,11 @@ use crate::services::start_services;
 use ::tracing::debug;
 use clap::Parser;
 use slint::{PhysicalSize, WindowSize};
-use std::sync::Arc;
 // use tracing::{debug, error, info, trace, warn, Level};
 use crate::service_config::ServiceConfig;
 use crate::tracing::init_tracing;
-use tracing_appender::rolling::{RollingFileAppender, Rotation};
-use tracing_subscriber::{EnvFilter, fmt};
+// use tracing_appender::rolling::{RollingFileAppender, Rotation};
+// use tracing_subscriber::{//EnvFilter, fmt};
 
 slint::include_modules!();
 

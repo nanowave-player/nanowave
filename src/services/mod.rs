@@ -4,10 +4,9 @@ pub mod nanowave_player_service;
 
 use crate::{NanowavePlayerCommand, NanowavePlayerEvent, ServiceConfig};
 use chrono::{DateTime, Local};
-use smol::Timer;
 use std::thread;
 use std::time::{Duration, SystemTime};
-use tokio::runtime::{Handle, Runtime};
+use tokio::runtime::{Handle};
 use tokio::sync::broadcast::{Receiver, Sender};
 
 
@@ -41,7 +40,7 @@ pub fn start_services(
 pub async fn background_services(
     config: ServiceConfig,
     tx: Sender<NanowavePlayerEvent>,
-    rx: Receiver<NanowavePlayerCommand>,
+    _rx: Receiver<NanowavePlayerCommand>,
 ) {
     println!("background_services");
     let timer_task = tokio::spawn(async move {
@@ -68,8 +67,8 @@ pub async fn background_services(
 
 
 
-    let audio_device = empty_string_fallback(config.audio_device, "").clone();
-    let sample_file = empty_string_fallback(config.sample_file, "").clone();
+    let _audio_device = empty_string_fallback(config.audio_device, "").clone();
+    let _sample_file = empty_string_fallback(config.sample_file, "").clone();
 
 
     /*

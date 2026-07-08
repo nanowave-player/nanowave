@@ -2,7 +2,7 @@ use std::fs::File;
 use std::path::Path;
 use std::str::FromStr;
 use std::time::{Duration, SystemTime};
-use async_channel::{Receiver, Sender};
+// use async_channel::{Receiver, Sender};
 use rodio::cpal::{BufferSize, DeviceId};
 use rodio::cpal::traits::HostTrait;
 use rodio::{DeviceSinkBuilder, DeviceTrait, Source};
@@ -35,7 +35,7 @@ impl NanowavePlayerService {
                         println!("PlayTest received: {}", msg);
                         let _result = Self::playtest(self.audio_device.clone(), self.sample_file.clone()).await;
                         let response = NanowavePlayerEvent::OutputText(format!("{}: {}", format_time(SystemTime::now()), msg).into());
-                        let send_result = tx.send(response);
+                        let _send_result = tx.send(response);
                     }
                 }
             }
