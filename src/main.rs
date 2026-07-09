@@ -2,6 +2,7 @@ pub mod cli;
 pub mod service_config;
 pub mod services;
 pub mod tracing;
+mod controllers;
 
 use crate::cli::Cli;
 use crate::services::nanowave_player_command::NanowavePlayerCommand;
@@ -54,6 +55,7 @@ fn main() {
         handle.clone(),
     );
 
+    /*
     app.on_send_clicked({
         let tx = command_tx.clone();
         move |msg| {
@@ -67,7 +69,7 @@ fn main() {
             }
         }
     });
-
+    */
     let app_weak = app.as_weak();
 
     // let (event_tx, event_rx) = tokio::sync::broadcast::channel::<NanowavePlayerEvent>(BROADCAST_CHANNEL_BUFFER_SIZE);
@@ -85,10 +87,10 @@ fn main() {
                         if let Some(app) = app.upgrade() {
                             match player_event {
                                 NanowavePlayerEvent::OutputText(msg) => {
-                                    app.set_output_text(msg.into());
+                                    // app.set_output_text(msg.into());
                                 }
                                 NanowavePlayerEvent::Position(pos) => {
-                                    app.set_position(pos.into());
+                                    // app.set_position(pos.into());
                                 }
                             }
                         }

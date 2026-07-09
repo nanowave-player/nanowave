@@ -1,32 +1,14 @@
 
 import { VerticalBox, Button, Palette, Slider, GridBox, HorizontalBox } from "std-widgets.slint";
-import {SlintAudioPlayer} from "globals.slint";
-
+import {SlintNavigation, SlintPreferences} from "./globals.slint";
 export component App inherits Window {
     default-font-family: "Lato";
     default-font-size: 16pt;
-    in-out property <physical-length> swipe-area-width: 50px;
-
-    in-out property <physical-length> cur-pos: 0px;
-    in-out property <physical-length> pressed-pos: 0px;
-
-    callback touch_event();
-
-    in-out property <string> output_text;
-    in-out property <string> position;
-    callback send_clicked(string);
-
-
-
-    // 368 x 552
-    // width: 368px;
-    // height: 552px;
 
     init => {
         // load preferences
         // restore route
-        Palette.color-scheme = ColorScheme.dark; // SlintPreferences.color-scheme;
-
+        Palette.color-scheme = SlintPreferences.color-scheme;
     }
 
     SwipeGestureHandler {
@@ -34,14 +16,14 @@ export component App inherits Window {
         y: 0;
         width: root.width; // 368px;
         height: root.height; // 552px;
-        handle-swipe-right: true; //SlintPreferences.enable-gestures;
-        handle-swipe-left: true; // SlintPreferences.enable-gestures;
+        handle-swipe-right: SlintPreferences.enable-gestures;
+        handle-swipe-left: SlintPreferences.enable-gestures;
         swiped => {
-            if (true /*SlintPreferences.enable-gestures*/) {
+            if (SlintPreferences.enable-gestures) {
                 if (self.current-position.x > self.pressed-position.x) {
-                    // SlintNavigation.back()
+                    SlintNavigation.back()
                 } else if (self.current-position.x < self.pressed-position.x) {
-                    // SlintNavigation.forward()
+                    SlintNavigation.forward()
                 }
             }
         }
@@ -50,135 +32,34 @@ export component App inherits Window {
     in property <[string]> items: [
         "A", "B", "C", "D", "E", "F", "G"
     ];
-    property<length> spacing: 0px; // 16px;
-    property<int> columns: Math.floor(root.width / 150px);
-    property<int> rows: Math.ceil(items.length / columns);
-    property<length> columns-width: (columns - 1)  * spacing;
-    property<length> tile-size: (self.width - columns-width) / columns;
+    // property<length> spacing: 0px; // 16px;
+    property<int> columns: Math.max(1, Math.floor(root.width / 150px));
+    property<int> rows: Math.max(1, Math.ceil(items.length / columns));
+    // property<length> columns-width: (columns - 1)  * spacing;
+    property<length> tile-size: self.width / columns;
     Flickable {
         interactive: false;
         VerticalBox {
-            /*
-            Text {
-                text: rows;
-            }
-            Text {
-                text: columns;
-            }
-            */
+            padding: 0px;
+            spacing: 0px;
 
             // using properties for rows or columns does not work.
             // fixed values (rows=4, columns=2) do work
             for i in rows: HorizontalBox {
+                padding: 0px;
+                spacing: 0px;
                 for j in columns: Rectangle {
                     width: tile-size;
                     height: tile-size;
-                    in-out property <int> current-index: i * columns + j;
+                    property <int> current-index: i * columns + j;
                     background: #3b82f6;
                     VerticalBox {
-                        /*
-                        HorizontalBox {
-                            Text {
-                                text:i;
-                            }
-                            Text {
-                                text:j;
-                            }
-                        }
-
-                        Text {
-                            text:current-index;
-                        }
-                        */
                         if current-index < items.length: Text {
                             text: items[current-index];
                         }
-
                     }
-
                 }
             }
         }
-
     }
-
-/*
-    Flickable {
-        interactive: false; // todo: does this work on the lichee??
-
-
-
-        GridLayout {
-            spacing: 10px;
-            for item[index] in items: Rectangle {
-                // row: current-row;
-                row: (index - Math.mod(index , columns) / columns);
-                background: #3b82f6;
-                border-radius: 8px;
-
-                // quadratisch
-                width: tile-size;
-                height: self.width;
-
-                Text {
-                    text: item;
-                    color: white;
-                    horizontal-alignment: center;
-                    vertical-alignment: center;
-                }
-
-            }
-        }
-    }
-    */
-        /*
-        VerticalBox {
-            padding:0px;
-            Slider {
-
-            }
-
-            input := TextInput {
-                text:"";
-            }
-
-            Button {
-                text: "Send";
-                clicked => {
-                    send_clicked(input.text);
-                }
-            }
-
-            Text {
-                text: output_text;
-            }
-            Text {
-                text: position;
-            }
-
-            if SlintNavigation.route[0] == "home": Home { }
-            if SlintNavigation.route[0] == "audiobooks": Audiobooks { }
-            if SlintNavigation.route[0] == "music": Music { }
-            if SlintNavigation.route[0] == "settings": Settings { }
-            if SlintNavigation.route[0] == "search": Search { }
-            if SlintNavigation.route[0] == "details": Details {
-                item-id: SlintNavigation.route[1];
-            }
-
-        }
-        */
-
-
-
-    /*
-    if !SlintPreferences.enable-touch-events: TouchArea {
-        width: 100%;
-        height: 100%;
-        pointer-event(e) => {
-            SlintPreferences.user_interaction();
-            return EventResult.reject;
-            // return false;
-        }
-    }
-    */
 }
