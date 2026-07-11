@@ -33,6 +33,8 @@ fn main() {
     init_tracing(&cli.env_filter);
 
     let app = App::new().unwrap();
+
+
     size_window(&cli, &app);
 
     let (command_tx, command_rx) =
@@ -55,21 +57,6 @@ fn main() {
         handle.clone(),
     );
 
-    /*
-    app.on_send_clicked({
-        let tx = command_tx.clone();
-        move |msg| {
-            println!("send clicked: {}", msg);
-            let cmd = NanowavePlayerCommand::PlayTest(msg.into());
-            let send_result = tx.send(cmd);
-            if let Err(err) = send_result {
-                println!("send failed: {}", err);
-            } else {
-                println!("send success");
-            }
-        }
-    });
-    */
     let app_weak = app.as_weak();
 
     // let (event_tx, event_rx) = tokio::sync::broadcast::channel::<NanowavePlayerEvent>(BROADCAST_CHANNEL_BUFFER_SIZE);
@@ -95,7 +82,7 @@ fn main() {
                             }
                         }
                     })
-                    .unwrap();
+                        .unwrap();
                 }
 
                 Err(tokio::sync::broadcast::error::RecvError::Lagged(n)) => {
@@ -106,6 +93,28 @@ fn main() {
             }
         }
     });
+
+    controllers::app::setup(&app, &cli);
+    controllers::home::setup(&app);
+
+
+    /*
+    app.on_send_clicked({
+        let tx = command_tx.clone();
+        move |msg| {
+            println!("send clicked: {}", msg);
+            let cmd = NanowavePlayerCommand::PlayTest(msg.into());
+            let send_result = tx.send(cmd);
+            if let Err(err) = send_result {
+                println!("send failed: {}", err);
+            } else {
+                println!("send success");
+            }
+        }
+    });
+    */
+
+
 
     app.run().unwrap();
 }

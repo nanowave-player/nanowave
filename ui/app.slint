@@ -1,6 +1,8 @@
 
 import { VerticalBox, Button, Palette, Slider, GridBox, HorizontalBox } from "std-widgets.slint";
-import {SlintNavigation, SlintPreferences} from "./globals.slint";
+import {SlintNavigation, SlintPreferences, SlintIcons} from "./globals.slint";
+import {HomeButtonItem} from "./structs/HomeButtonItem.slint";
+
 export component App inherits Window {
     default-font-family: "Lato";
     default-font-size: 16pt;
@@ -10,6 +12,8 @@ export component App inherits Window {
         // restore route
         Palette.color-scheme = SlintPreferences.color-scheme;
     }
+    width: 368px;
+    height: 552px; // height: root.height; // 552px;
 
     SwipeGestureHandler {
         x: 0;
@@ -29,8 +33,10 @@ export component App inherits Window {
         }
     }
 
-    in property <[string]> items: [
-        "A", "B", "C", "D", "E", "F", "G"
+    in property <[HomeButtonItem]> items: [
+        { name: "music", label: "Music", icon: SlintIcons.music },
+        { name: "audibooks", label: "Audio books", icon: SlintIcons.audiobooks },
+        { name: "settings", label: "Settings", icon: SlintIcons.settings },
     ];
     // property<length> spacing: 0px; // 16px;
     property<int> columns: Math.max(1, Math.floor(root.width / 150px));
@@ -39,6 +45,7 @@ export component App inherits Window {
     property<length> tile-size: self.width / columns;
     Flickable {
         interactive: false;
+        width: 100%;
         VerticalBox {
             padding: 0px;
             spacing: 0px;
@@ -52,12 +59,25 @@ export component App inherits Window {
                     width: tile-size;
                     height: tile-size;
                     property <int> current-index: i * columns + j;
+                    /*
                     background: #3b82f6;
-                    VerticalBox {
-                        if current-index < items.length: Text {
-                            text: items[current-index];
+                    Rectangle {
+                        border-width: 1px;
+                        border-color: #808080;
+                        border-radius: 4px;
+                    */
+                        if current-index < items.length: VerticalBox {
+                            alignment: center;
+                            Image {
+                                horizontal-alignment: center;
+                                source: items[current-index].icon;
+                            }
+                            Text {
+                                horizontal-alignment: center;
+                                text: items[current-index].label;
+                            }
                         }
-                    }
+                    /* } */
                 }
             }
         }
