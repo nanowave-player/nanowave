@@ -12,11 +12,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da7600e2-a4da-4669-a586-ae42a70de8de" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ui/types.slint" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ui/types/SlintIcons.slint" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ui/types/SlintMediaSource.slint" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ui/types/SlintMediaSourceChapter.slint" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ui/types/SlintMediaSourceItem.slint" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ui/types/SlintPreferences.slint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/home.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/home.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui/app.slint" beforeDir="false" afterPath="$PROJECT_DIR$/ui/app.slint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/globals.slint" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/navigator.slint" beforeDir="false" afterPath="$PROJECT_DIR$/ui/navigator.slint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/structs/HomeButtonItem.slint" beforeDir="false" afterPath="$PROJECT_DIR$/ui/types/HomeButtonItem.slint" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +80,10 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ui" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ui/types" />
+      <recent name="$PROJECT_DIR$/ui/structs" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Run nanowave" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
@@ -120,7 +130,7 @@
       <workItem from="1781138626717" duration="1625000" />
       <workItem from="1782895439749" duration="61000" />
       <workItem from="1783152402817" duration="17431000" />
-      <workItem from="1783245750318" duration="25560000" />
+      <workItem from="1783245750318" duration="30333000" />
     </task>
     <servers />
   </component>

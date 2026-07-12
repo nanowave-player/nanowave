@@ -1,0 +1,23 @@
+import {SlintMediaSourceChapter} from "./SlintMediaSourceChapter.slint";
+
+export struct SlintMediaSourceItem {
+    id: string,
+    media_type: int,
+    position: duration,
+    position_formatted: string,
+    name: string,
+    genre: string,
+    artist: string,
+    album: string,
+    composer: string,
+    series: string,
+    part: string,
+
+    // cover: string,
+    // thumbnail: string
+    has-cover: bool,
+    cover: image,
+    has-thumbnail: bool,
+    thumbnail: image,
+    chapters: [SlintMediaSourceChapter]
+}

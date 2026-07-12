@@ -1,0 +1,19 @@
+
+import {SlintMediaSourceItem} from "./SlintMediaSourceItem.slint";
+
+export global SlintAudioPlayer {
+    in-out property <SlintMediaSourceItem> current-item;
+    in-out property <string> status; // playing, paused
+    in-out property <duration> position;
+
+
+    callback play_test();
+    callback play_media(string, duration);
+    callback toggle();
+    callback play();
+    callback pause();
+    callback next();
+    callback previous();
+    callback seek_relative(duration);
+    callback seek_to(duration);
+}

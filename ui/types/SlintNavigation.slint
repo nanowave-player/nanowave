@@ -1,0 +1,8 @@
+export global SlintNavigation {
+    in-out property <[string]> route: ["home"];
+    in-out property <int> history_index: 0;
+    in-out property <[[string]]> history: [["home"]];
+
+    callback path([string]);
+    callback offset(int);
+}

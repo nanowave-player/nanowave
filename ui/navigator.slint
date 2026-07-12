@@ -1,8 +1,8 @@
-import { SlintNavigation } from "globals.slint";
+import { SlintNavigation } from "types.slint";
 
 export component Navigator inherits TouchArea {
     in property <[string]> route;
     clicked => {
-        SlintNavigation.goto(route);
+        SlintNavigation.path(route);
     }
 }

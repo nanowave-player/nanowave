@@ -1,48 +1,68 @@
 
 import { VerticalBox, Button, Palette, Slider, GridBox, HorizontalBox } from "std-widgets.slint";
-import {SlintNavigation, SlintPreferences, SlintIcons} from "./globals.slint";
-import {HomeButtonItem} from "./structs/HomeButtonItem.slint";
+import {HomeButtonItem, SlintIcons, SlintNavigation, SlintPreferences} from "./types.slint";
 
 export component App inherits Window {
+    width: 368px;
+    height: 552px; // height: root.height; // 552px;
+
     default-font-family: "Lato";
     default-font-size: 16pt;
+
+    in property <[HomeButtonItem]> items: [
+        { name: "music", label: "Music", icon: SlintIcons.music },
+        { name: "audibooks", label: "Audiobooks", icon: SlintIcons.audiobooks },
+        { name: "settings", label: "Settings", icon: SlintIcons.settings },
+    ];
+
+    property<int> columns: Math.max(1, Math.floor(root.width / 150px));
+    property<int> rows: Math.max(1, Math.ceil(items.length / columns));
+    property<length> tile-size: self.width / columns;
 
     init => {
         // load preferences
         // restore route
         Palette.color-scheme = SlintPreferences.color-scheme;
     }
-    width: 368px;
-    height: 552px; // height: root.height; // 552px;
 
     SwipeGestureHandler {
         x: 0;
         y: 0;
-        width: root.width; // 368px;
-        height: root.height; // 552px;
+        width: root.width;
+        height: root.height;
         handle-swipe-right: SlintPreferences.enable-gestures;
         handle-swipe-left: SlintPreferences.enable-gestures;
         swiped => {
-            if (SlintPreferences.enable-gestures) {
+            let xdiff = self.current-position.x - self.pressed-position.x;
+            let ydiff = self.current-position.y - self.pressed-position.y;
+            let is-horizontal-swipe = xdiff*xdiff > ydiff * ydiff;
+
+            if (is-horizontal-swipe) {
                 if (self.current-position.x > self.pressed-position.x) {
-                    SlintNavigation.back()
+                    // debug("swipe: back");
+                    SlintNavigation.offset(-1);
                 } else if (self.current-position.x < self.pressed-position.x) {
-                    SlintNavigation.forward()
+                    // debug("swipe: forward");
+                    SlintNavigation.offset(1);
+                }
+            } else if(!is-horizontal-swipe) {
+                if (self.current-position.y > self.pressed-position.y) {
+                    // debug("swipe: down");
+                    SlintNavigation.path(["settings"]);
+                } else if (self.current-position.y < self.pressed-position.y) {
+                    debug("swipe: up");
+                    /*
+                    let item-id = SlintAudioPlayer.current-item.id;
+                    if (item-id != "") {
+                        SlintNavigation.path(["details", item-id]);
+                    }
+                    */
                 }
             }
         }
     }
 
-    in property <[HomeButtonItem]> items: [
-        { name: "music", label: "Music", icon: SlintIcons.music },
-        { name: "audibooks", label: "Audio books", icon: SlintIcons.audiobooks },
-        { name: "settings", label: "Settings", icon: SlintIcons.settings },
-    ];
-    // property<length> spacing: 0px; // 16px;
-    property<int> columns: Math.max(1, Math.floor(root.width / 150px));
-    property<int> rows: Math.max(1, Math.ceil(items.length / columns));
-    // property<length> columns-width: (columns - 1)  * spacing;
-    property<length> tile-size: self.width / columns;
+
     Flickable {
         interactive: false;
         width: 100%;

@@ -1,0 +1,10 @@
+import {SlintMediaSourceItem} from "SlintMediaSourceItem.slint";
+export global SlintMediaSource {
+    in-out property <bool> is-loading;
+    in-out property <[SlintMediaSourceItem]> filter-results;
+    in-out property <[SlintMediaSourceItem]> find-results;
+
+    callback filter(query: string);
+    callback find(id: string);
+
+}
