@@ -1,6 +1,7 @@
 
 import { VerticalBox, Button, Palette, Slider, GridBox, HorizontalBox } from "std-widgets.slint";
 import {HomeButtonItem, SlintIcons, SlintNavigation, SlintPreferences} from "./types.slint";
+import {StatusBar} from "./components.slint";
 
 export component App inherits Window {
     width: 368px;
@@ -63,43 +64,54 @@ export component App inherits Window {
     }
 
 
-    Flickable {
-        interactive: false;
-        width: 100%;
-        VerticalBox {
-            padding: 0px;
-            spacing: 0px;
 
-            // using properties for rows or columns does not work.
-            // fixed values (rows=4, columns=2) do work
-            for i in rows: HorizontalBox {
-                padding: 0px;
-                spacing: 0px;
-                for j in columns: Rectangle {
-                    width: tile-size;
-                    height: tile-size;
-                    property <int> current-index: i * columns + j;
-                    /*
-                    background: #3b82f6;
-                    Rectangle {
-                        border-width: 1px;
-                        border-color: #808080;
-                        border-radius: 4px;
-                    */
-                        if current-index < items.length: VerticalBox {
-                            alignment: center;
-                            Image {
-                                horizontal-alignment: center;
-                                source: items[current-index].icon;
-                            }
-                            Text {
-                                horizontal-alignment: center;
-                                text: items[current-index].label;
-                            }
+    VerticalBox {
+        StatusBar {
+            visible: SlintPreferences.enable-statusbar;
+            width:100%;
+            height:25px;
+        }
+
+        Flickable {
+                interactive: false;
+                width: 100%;
+
+                VerticalBox {
+                    padding: 0px;
+                    spacing: 0px;
+
+                    // using properties for rows or columns does not work.
+                    // fixed values (rows=4, columns=2) do work
+                    for i in rows: HorizontalBox {
+                        padding: 0px;
+                        spacing: 0px;
+                        for j in columns: Rectangle {
+                            width: tile-size;
+                            height: tile-size;
+                            property <int> current-index: i * columns + j;
+                            /*
+                            background: #3b82f6;
+                            Rectangle {
+                                border-width: 1px;
+                                border-color: #808080;
+                                border-radius: 4px;
+                            */
+                                if current-index < items.length: VerticalBox {
+                                    alignment: center;
+                                    Image {
+                                        horizontal-alignment: center;
+                                        source: items[current-index].icon;
+                                    }
+                                    Text {
+                                        horizontal-alignment: center;
+                                        text: items[current-index].label;
+                                    }
+                                }
+                            /* } */
                         }
-                    /* } */
+                    }
                 }
             }
-        }
     }
+
 }
