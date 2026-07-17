@@ -1,3 +1,60 @@
+import { HorizontalBox, VerticalBox } from "std-widgets.slint";
+import { SlintIcons } from "../types.slint";
 export component StatusBar inherits Rectangle {
-    background: black;
+    in-out property <length> font-size: 14px;
+    in-out property <string> time: "08:33";
+
+    HorizontalBox {
+        alignment: center;
+        padding: 0;
+        spacing: 0;
+
+        HorizontalBox {
+            width: 33%;
+            padding: 0;
+            spacing: 0;
+            alignment: center;
+            padding-left:5px;
+
+            /*
+            Text {
+                font-size: root.font-size;
+                text: "first";
+            }
+            */
+        }
+        HorizontalBox {
+            width: 33%;
+            padding: 0;
+            spacing: 0;
+            alignment: center;
+
+            Text {
+                vertical-alignment: center;
+                font-size: root.font-size;
+                text: time;
+            }
+        }
+
+        HorizontalBox {
+            width: 33%;
+            padding: 0;
+            spacing: 0;
+            alignment: center;
+            padding-right: 5px;
+
+            Image {
+                horizontal-alignment: right;
+                vertical-alignment: center;
+                padding: 2px;
+                source: SlintIcons.play;
+            }
+            Text {
+                horizontal-alignment: center;
+                vertical-alignment: center;
+                font-size: root.font-size;
+                text: "90%";
+            }
+        }
+    }
 }

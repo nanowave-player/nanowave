@@ -10,14 +10,14 @@ export component App inherits Window {
     default-font-family: "Lato";
     default-font-size: 16pt;
 
-    in property <[HomeButtonItem]> items: [
+    in property <[HomeButtonItem]> homeButtonItems: [
         { name: "music", label: "Music", icon: SlintIcons.music },
         { name: "audibooks", label: "Audiobooks", icon: SlintIcons.audiobooks },
         { name: "settings", label: "Settings", icon: SlintIcons.settings },
     ];
 
     property<int> columns: Math.max(1, Math.floor(root.width / 150px));
-    property<int> rows: Math.max(1, Math.ceil(items.length / columns));
+    property<int> rows: Math.max(1, Math.ceil(homeButtonItems.length / columns));
     property<length> tile-size: self.width / columns;
 
     init => {
@@ -66,6 +66,7 @@ export component App inherits Window {
 
 
     VerticalBox {
+        padding: 0;
         StatusBar {
             visible: SlintPreferences.enable-statusbar;
             width:100%;
@@ -73,45 +74,45 @@ export component App inherits Window {
         }
 
         Flickable {
-                interactive: false;
-                width: 100%;
+            interactive: false;
+            width: 100%;
 
-                VerticalBox {
+            VerticalBox {
+                padding: 0px;
+                spacing: 0px;
+
+                // using properties for rows or columns does not work.
+                // fixed values (rows=4, columns=2) do work
+                for i in rows: HorizontalBox {
                     padding: 0px;
                     spacing: 0px;
-
-                    // using properties for rows or columns does not work.
-                    // fixed values (rows=4, columns=2) do work
-                    for i in rows: HorizontalBox {
-                        padding: 0px;
-                        spacing: 0px;
-                        for j in columns: Rectangle {
-                            width: tile-size;
-                            height: tile-size;
-                            property <int> current-index: i * columns + j;
-                            /*
-                            background: #3b82f6;
-                            Rectangle {
-                                border-width: 1px;
-                                border-color: #808080;
-                                border-radius: 4px;
-                            */
-                                if current-index < items.length: VerticalBox {
-                                    alignment: center;
-                                    Image {
-                                        horizontal-alignment: center;
-                                        source: items[current-index].icon;
-                                    }
-                                    Text {
-                                        horizontal-alignment: center;
-                                        text: items[current-index].label;
-                                    }
+                    for j in columns: Rectangle {
+                        width: tile-size;
+                        height: tile-size;
+                        property <int> current-index: i * columns + j;
+                        /*
+                        background: #3b82f6;
+                        Rectangle {
+                            border-width: 1px;
+                            border-color: #808080;
+                            border-radius: 4px;
+                        */
+                            if current-index < homeButtonItems.length: VerticalBox {
+                                alignment: center;
+                                Image {
+                                    horizontal-alignment: center;
+                                    source: homeButtonItems[current-index].icon;
                                 }
-                            /* } */
-                        }
+                                Text {
+                                    horizontal-alignment: center;
+                                    text: homeButtonItems[current-index].label;
+                                }
+                            }
+                        /* } */
                     }
                 }
             }
+        }
     }
 
 }
