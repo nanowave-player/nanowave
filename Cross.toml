@@ -1,26 +1,62 @@
 [target.mipsel-unknown-linux-musl]
 image = "hiby-r1-cross:latest"
-linker = "mipsel-linux-gcc"
 rustflags = ["-C", "link-args=-static"]
+# linker = "mipsel-buildroot-linux-musl-gcc"
 
-[build.env]
-passthrough = [
-    "SDK=/project/buildroot/buildroot-2025.02.2/output/host",
-    "PREFIX=mipsel-linux",
-    "SYSROOT=/project/buildroot/buildroot-2025.02.2/output/host/mipsel-buildroot-linux-musl/sysroot",
-    "PKG_CONFIG_ALLOW_CROSS=1",
-    "PKG_CONFIG_PATH=/project/buildroot/buildroot-2025.02.2/output/host/mipsel-buildroot-linux-musl/sysroot/usr/lib/pkgconfig",
-    "PKG_CONFIG_SYSROOT_DIR=/project/buildroot/buildroot-2025.02.2/output/host/mipsel-buildroot-linux-musl/sysroot",
-    "PKG_CONFIG_LIBDIR=/project/buildroot/buildroot-2025.02.2/output/host/usr/lib/pkgconfig:/project/buildroot/buildroot-2025.02.2/output/host/usr/share/pkgconfig",
-    "CC_mipsel_unknown_linux_musl=mipsel-linux-gcc",
-    "CXX_mipsel_unknown_linux_musl=mipsel-linux-g++",
-    "AR_mipsel_unknown_linux_musl=mipsel-linux-ar",
-    "AS_mipsel_unknown_linux_musl=mipsel-linux-as",
-    "LD_mipsel_unknown_linux_musl=mipsel-linux-ld",
-    "NM_mipsel_unknown_linux_musl=mipsel-linux-nm",
-    "STRIP_mipsel_unknown_linux_musl=mipsel-linux-strip",
-    "RANLIB_mipsel_unknown_linux_musl=mipsel-linux-ranlib"
-]
+
+# [target.mipsel-unknown-linux-musl.docker]
+# volumes = [
+#    "./buildroot:/project/buildroot:ro",
+# ]
+
+
+# remove "PKG_CONFIG_LIBDIR=/project/buildroot/buildroot-2025.02.2/output/host/usr/lib/pkgconfig:/project/buildroot/buildroot-2025.02.2/output/host/usr/share/pkgconfig",
+# replac "PKG_CONFIG_LIBDIR=/project/buildroot/buildroot-2025.02.2/output/host/mipsel-buildroot-linux-musl/sysroot/usr/lib/pkgconfig:/project/buildroot/buildroot-2025.02.2/output/host/mipsel-buildroot-linux-musl/sysroot/usr/share/pkgconfig",
+# [build.env]
+# passthrough = [
+#     # "PREFIX=mipsel-linux",
+#     # "PKG_CONFIG_LIBDIR=/project/buildroot/buildroot-2025.02.2/output/host/usr/lib/pkgconfig:/project/buildroot/buildroot-2025.02.2/output/host/usr/share/pkgconfig",
+#     "SDK=/project/buildroot/buildroot-2025.02.2/output/host",
+#     "PREFIX=mipsel-buildroot-linux-musl",
+#     "SYSROOT=/project/buildroot/buildroot-2025.02.2/output/host/mipsel-buildroot-linux-musl/sysroot",
+#     "PKG_CONFIG_ALLOW_CROSS=1",
+#     "PKG_CONFIG_PATH=/project/buildroot/buildroot-2025.02.2/output/host/mipsel-buildroot-linux-musl/sysroot/usr/lib/pkgconfig",
+#     "PKG_CONFIG_SYSROOT_DIR=/project/buildroot/buildroot-2025.02.2/output/host/mipsel-buildroot-linux-musl/sysroot",
+#     "PKG_CONFIG_LIBDIR=/project/buildroot/buildroot-2025.02.2/output/host/mipsel-buildroot-linux-musl/sysroot/usr/lib/pkgconfig:/project/buildroot/buildroot-2025.02.2/output/host/mipsel-buildroot-linux-musl/sysroot/usr/share/pkgconfig",
+#     "CC_mipsel_unknown_linux_musl=mipsel-linux-gcc",
+#     "CXX_mipsel_unknown_linux_musl=mipsel-linux-g++",
+#     "AR_mipsel_unknown_linux_musl=mipsel-linux-ar",
+#     "AS_mipsel_unknown_linux_musl=mipsel-linux-as",
+#     "LD_mipsel_unknown_linux_musl=mipsel-linux-ld",
+#     "NM_mipsel_unknown_linux_musl=mipsel-linux-nm",
+#     "STRIP_mipsel_unknown_linux_musl=mipsel-linux-strip",
+#     "RANLIB_mipsel_unknown_linux_musl=mipsel-linux-ranlib"
+# ]
+
+
+# env = [
+#     "SDK=/project/buildroot/buildroot-2025.02.2/output/host",
+#     "PREFIX=mipsel-buildroot-linux-musl",
+#     "SYSROOT=/project/buildroot/buildroot-2025.02.2/output/host/mipsel-buildroot-linux-musl/sysroot",
+#     "PKG_CONFIG_ALLOW_CROSS=1",
+#     "PKG_CONFIG_PATH=/project/buildroot/buildroot-2025.02.2/output/host/mipsel-buildroot-linux-musl/sysroot/usr/lib/pkgconfig:/project/buildroot/buildroot-2025.02.2/output/host/mipsel-buildroot-linux-musl/sysroot/usr/share/pkgconfig",
+#     "PKG_CONFIG_SYSROOT_DIR=/project/buildroot/buildroot-2025.02.2/output/host/mipsel-buildroot-linux-musl/sysroot",
+#     "PKG_CONFIG_LIBDIR=/project/buildroot/buildroot-2025.02.2/output/host/mipsel-buildroot-linux-musl/sysroot/usr/lib/pkgconfig:/project/buildroot/buildroot-2025.02.2/output/host/mipsel-buildroot-linux-musl/sysroot/usr/share/pkgconfig",
+#     "CC_mipsel_unknown_linux_musl=mipsel-buildroot-linux-musl-gcc",
+#     "CXX_mipsel_unknown_linux_musl=mipsel-buildroot-linux-musl-g++",
+#     "AR_mipsel_unknown_linux_musl=mipsel-buildroot-linux-musl-ar",
+#     "AS_mipsel_unknown_linux_musl=mipsel-buildroot-linux-musl-as",
+#     "LD_mipsel_unknown_linux_musl=mipsel-buildroot-linux-musl-ld",
+#     "NM_mipsel_unknown_linux_musl=mipsel-buildroot-linux-musl-nm",
+#     "STRIP_mipsel_unknown_linux_musl=mipsel-buildroot-linux-musl-strip",
+#     "RANLIB_mipsel_unknown_linux_musl=mipsel-buildroot-linux-musl-ranlib",
+# ]
+
+# run-args = [
+#    "--entrypoint=/bin/bash"
+# ]
+
+
 
 # SDK="/project/buildroot/buildroot-2025.02.2/output/host"
 # PREFIX="mipsel-linux"

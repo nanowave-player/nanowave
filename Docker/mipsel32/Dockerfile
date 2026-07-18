@@ -16,13 +16,19 @@ RUN apt-get update && apt-get install -y \
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 
-
+# RUN rustup toolchain install nightly
+# RUN rustup target add --toolchain nightly mipsel-unknown-linux-musl
+# RUN rustup component add --toolchain nightly rust-src
 # RUN rustup component add rust-src --toolchain nightly
+
+
+RUN rustup toolchain install nightly
+RUN rustup component add rust-src --toolchain nightly
 
 COPY Docker/mipsel32/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 WORKDIR /project
 
-# ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["bash"]

@@ -7,6 +7,7 @@
 
 # experimental
 # rustup component add rustc
+export CROSS_CONTAINER_OPTS="-v $(pwd)/buildroot:/project/buildroot:ro"
 
 cross +nightly build --no-default-features --features "slint/backend-linuxkms-noseat,slint/renderer-software,slint/compat-1-2" \
     -Z build-std=core,alloc,std,proc_macro,panic_abort \
