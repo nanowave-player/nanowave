@@ -1,6 +1,11 @@
 [target.mipsel-unknown-linux-musl]
 image = "hiby-r1-cross:latest"
-rustflags = ["-C", "link-args=-static"]
+linker = "mipsel-buildroot-linux-musl-gcc"
+rustflags = [
+    "-C", "link-arg=-static"
+]
+
+# rustflags = ["-C", "link-args=-static"]
 # linker = "mipsel-buildroot-linux-musl-gcc"
 
 

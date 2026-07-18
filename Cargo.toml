@@ -6,8 +6,7 @@ edition = "2024"
 [dependencies]
 async-channel = "2.5.0"
 chrono = "0.4.44"
-#slint = { git = "https://github.com/sandreas/slint.git", branch="1.6.1-reapply-color-fix", features = ["backend-linuxkms-noseat", "renderer-software"] }
-slint = "1.17.0"
+slint = { git = "https://github.com/slint-ui/slint", branch = "master", default-features=false, features=["backend-linuxkms-noseat", "renderer-software", "compat-1-2" ]}
 smol = "2.0.2"
 tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "time", "io-std"] }
 tracing = "0.1"
@@ -15,12 +14,17 @@ tracing-subscriber = { version = "0.3", features = ["fmt", "env-filter"] }
 tracing-appender = "0.2"
 clap = { version = "4.6.1", features = ["derive"] }
 
-rodio = { git = "https://github.com/RustAudio/rodio.git", branch="master" }
-media_source = { path = "../media_source" } # use for local git (see cargo.toml)
+#rodio = { git = "https://github.com/RustAudio/rodio.git", branch="master" }
+#media_source = { path = "../media_source" }
 
 [build-dependencies]
-#slint-build = { git = "https://github.com/sandreas/slint.git", branch="1.6.1-reapply-color-fix" }
-slint-build = "1.17.0"
+slint-build = { git = "https://github.com/slint-ui/slint", branch = "master", default-features=false, features=[ "renderer-software", "compat-1-18"]}
+
+
+[patch.crates-io]
+fontique = { git = "https://github.com/linebender/parley.git", branch = "main" }
+parley = { git = "https://github.com/linebender/parley.git", branch = "main" }
+parlance = { git = "https://github.com/linebender/parley.git", branch = "main" }
 
 [profile.release]
 lto = true

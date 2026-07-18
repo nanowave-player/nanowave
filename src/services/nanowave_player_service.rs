@@ -3,9 +3,9 @@ use std::path::Path;
 use std::str::FromStr;
 use std::time::{Duration, SystemTime};
 // use async_channel::{Receiver, Sender};
-use rodio::cpal::{BufferSize, DeviceId};
-use rodio::cpal::traits::HostTrait;
-use rodio::{DeviceSinkBuilder, DeviceTrait, Source};
+// use rodio::cpal::{BufferSize, DeviceId};
+// use rodio::cpal::traits::HostTrait;
+// use rodio::{DeviceSinkBuilder, DeviceTrait, Source};
 use smol::Timer;
 use tokio::sync::mpsc::{UnboundedReceiver, UnboundedSender};
 use tracing::{debug, warn};
@@ -42,6 +42,7 @@ impl NanowavePlayerService {
         }
     }
     async fn playtest(audio_device: String, audio_file: String) -> Result<(), slint::PlatformError>{
+        /*
         debug!("playtest executing");
 
         let device_ids = vec![audio_device];
@@ -117,7 +118,7 @@ impl NanowavePlayerService {
         } else {
             warn!("failed to find audio device");
         }
-
+        */
         Ok(())
     }
 

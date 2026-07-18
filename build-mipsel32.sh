@@ -12,4 +12,7 @@ export CROSS_CONTAINER_OPTS="-v $(pwd)/buildroot:/project/buildroot:ro"
 cross +nightly build --no-default-features --features "slint/backend-linuxkms-noseat,slint/renderer-software,slint/compat-1-2" \
     -Z build-std=core,alloc,std,proc_macro,panic_abort \
     --target mipsel-unknown-linux-musl \
-    --release
+    --release -vv
+
+
+ # ./build-mipsel32.sh > build-mipsel32-5.log 2>&1
