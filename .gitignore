@@ -28,3 +28,5 @@ target
 /.experimental
 /logs
 /media
+/buildroot/*
+!/buildroot/configs/
