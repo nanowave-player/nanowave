@@ -1,3 +1,6 @@
 # this seems to be required, because linker is ignored in Cross.toml
 [target.mipsel-unknown-linux-musl]
 linker = "/project/buildroot/buildroot-2025.02.2/output/host/bin/mipsel-buildroot-linux-musl-gcc"
+rustflags = [
+    "-C", "link-arg=-static"
+]

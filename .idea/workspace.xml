@@ -12,13 +12,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da7600e2-a4da-4669-a586-ae42a70de8de" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.cargo/config.toml" beforeDir="false" afterPath="$PROJECT_DIR$/.cargo/config.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cross.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cross.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build-mipsel32.sh" beforeDir="false" afterPath="$PROJECT_DIR$/build-mipsel32.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/buildroot/configs/hiby_r1_defconfig" beforeDir="false" afterPath="$PROJECT_DIR$/buildroot/configs/hiby_r1_defconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/nanowave_player_service.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/nanowave_player_service.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +136,7 @@
       <workItem from="1784358113247" duration="309000" />
       <workItem from="1784358472853" duration="7783000" />
       <workItem from="1784378539287" duration="7874000" />
-      <workItem from="1784396266812" duration="8777000" />
+      <workItem from="1784396266812" duration="11184000" />
     </task>
     <servers />
   </component>
