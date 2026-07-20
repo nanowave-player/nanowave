@@ -28,3 +28,28 @@ Prepare build environment requires a few steps to build a custom docker image in
 ./build-mipsel32.sh
 ```
 
+## deploying notes for Hiby R1 (non functional by now)
+```
+
+# enable adb on the player (about, tap 10 times on the About headline)
+
+# list devices checks if it worked
+adb devices
+
+# push files to micro sd (root fs is not writable)
+# there is not
+# adb push . /usr/data/mnt/sd_0/bin/
+
+# get a shell
+adb shell
+
+
+# first kill the .sh, otherwise the player hardware will reboot
+kill -9 $(pgrep hiby_player.sh)
+
+# kill the player
+kill -9 $(pgrep hiby_player)
+
+# run the new player app
+/usr/data/mnt/sd_0/bin/nanowave
+```
