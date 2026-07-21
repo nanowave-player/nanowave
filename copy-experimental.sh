@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 REL_DST=".experimental/release/"
 REL_DST_LIB="${REL_DST}lib/"
@@ -39,35 +39,16 @@ for lib in $SRC_LIBS; do
 done
 
 
-mkdir -p "${REL_DST_FONTS}/conf.d/" "${REL_DST_FONTS}"
-cp "${REL_SRC_LIB}etc/fonts/fonts.conf" "${REL_DST_FONTS}"
+mkdir -p "${REL_DST_FONTS}"
+# cp "${REL_SRC_LIB}etc/fonts/fonts.conf" "${REL_DST_FONTS}"
 
 # cd fonts && ./build-cache.sh && cd -
-cp -rp fonts/{cache,ttf} "${REL_DST_FONTS}/"
-
-# buildroot/buildroot-2025.02.2/output/host/mipsel-buildroot-linux-musl/sysroot/usr/share/xml/fontconfig/fonts.dtd
-# fc-cache -f -v fonts/ttf
-
-sed -i \
-  -e 's#<dir>/usr/share/fonts</dir>#<dir prefix="cwd">./ttf</dir>#' \
-  -e 's#<dir>/usr/local/share/fonts</dir>##' \
-  -e 's#<cachedir>/var/cache/fontconfig#<dir prefix="cwd">./cache</cachedir>#' \
-  "${REL_DST_FONTS}fonts.conf"
+cp -rp fonts/{fonts.conf,cache,ttf} "${REL_DST_FONTS}/"
 
 
-
-
-#  && cp target/mipsel-unknown-linux-musl/release/nanowave "$REL_DST" \
-#  && cp ${REL_SRC_LIB}usr/lib/libxkbcommon.so.0 "${REL_DST_LIB}" \
-#  && cp ${REL_SRC_LIB}usr/lib/libinput.so.10 "${REL_DST_LIB}" \
-#  && cp ${REL_SRC_LIB}usr/lib/libfontconfig.so.1 "${REL_DST_LIB}" \
-#  && cp ${REL_SRC_LIB}lib/libudev.so.1 "${REL_DST_LIB}" \
-#  && cp ${REL_SRC_LIB}lib/libgcc_s.so.1 "${REL_DST_LIB}" \
-#  && cp ${REL_SRC_LIB}lib/libc.so "${REL_DST_LIB}"
-
+# does not work on hiby r1, results in ./nanowave.sh: line 10: ./nanowave: not found
 # patchelf --set-interpreter '$ORIGIN/lib/libc.so' "${REL_DST}/nanowave"
 # patchelf --set-rpath '$ORIGIN/lib' "${REL_DST}/nanowave"
-
 
 patchelf --set-interpreter '/usr/data/mnt/sd_0/bin/lib/libc.so' "${REL_DST}/nanowave"
 patchelf --set-rpath '/usr/data/mnt/sd_0/bin/lib' "${REL_DST}/nanowave"
@@ -75,6 +56,23 @@ patchelf --set-rpath '/usr/data/mnt/sd_0/bin/lib' "${REL_DST}/nanowave"
 if [ "$1" = "push" ]; then
   adb push .experimental/release/* /usr/data/mnt/sd_0/bin/
 fi
+
+
+# # ./nanowave
+# usize=4
+# time_t=4
+# timespec=8
+#
+# # file nanowave
+# nanowave: ELF 32-bit LSB executable, MIPS, MIPS32 rel2 version 1 (SYSV), dynamically linked, interpreter /usr/data/mnt/sd_0/bin/lib/libc.so, stripped
+#
+# # readelf -h nanowave | grep Machine
+#   Machine:                           MIPS R3000
+
+# ~/.cargo/registry/src/.../calloop-0.14.4/src/sys.rs
+
+# libinput error: /usr/share/libinput: failed to find data files
+# libinput error: Failed to load the device quirks from /usr/share/libinput and /etc/libinput/local-overrides.quirks. This will negatively affect device behavior. See https://wayland.freedesktop.org/libinput/doc/1.27.0/device-quirks.html for details.
 
 
 # ./nanowave.sh
@@ -151,3 +149,4 @@ fi
   #Error relocating /usr/data/mnt/sd_0/bin/lib/libfontconfig.so.1: FT_Done_MM_Var: symbol not found
   #Error relocating /usr/data/mnt/sd_0/bin/lib/libfontconfig.so.1: FT_Init_FreeType: symbol not found
   #Error relocating /usr/data/mnt/sd_0/bin/lib/libfontconfig.so.1: FT_Get_PS_Font_Info: symbol not found
+

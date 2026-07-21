@@ -16,6 +16,7 @@ use crate::service_config::ServiceConfig;
 use crate::tracing::init_tracing;
 // use tracing_appender::rolling::{RollingFileAppender, Rotation};
 // use tracing_subscriber::{//EnvFilter, fmt};
+// use libc::{time_t, timespec};
 
 slint::include_modules!();
 
@@ -97,7 +98,15 @@ fn main() {
     controllers::app::setup(&app, &cli);
     controllers::home::setup(&app);
 
+    // zeile 119
+    // app.run().unwrap();
 
+    match app.run() {
+        Ok(()) => {}
+        Err(e) => {
+            eprintln!("app.run() failed: {e:?}");
+        }
+    }
     /*
     app.on_send_clicked({
         let tx = command_tx.clone();
@@ -116,7 +125,6 @@ fn main() {
 
 
 
-    app.run().unwrap();
 }
 
 fn debug_cli(cli: &Cli) {

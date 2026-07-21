@@ -19,6 +19,7 @@ media_source = { path = "../media_source" }
 #slint = { git = "https://github.com/slint-ui/slint", branch = "master"} #, default-features=false, features=["backend-linuxkms-noseat", "renderer-software", "compat-1-2" ]}
 #[target.mipsel-unknown-linux-musl.dependencies]
 slint = { git = "https://github.com/slint-ui/slint", branch = "master", default-features=false, features=["backend-linuxkms-noseat", "renderer-software", "compat-1-2" ]}
+# libc = "0.2.186"
 
 [build-dependencies]
 # [target.'cfg(not(target = "mipsel-unknown-linux-musl"))'.build-dependencies]
@@ -33,6 +34,9 @@ slint-build = { git = "https://github.com/slint-ui/slint", branch = "master", de
 fontique = { git = "https://github.com/linebender/parley.git", branch = "main" }
 parley = { git = "https://github.com/linebender/parley.git", branch = "main" }
 parlance = { git = "https://github.com/linebender/parley.git", branch = "main" }
+
+# hiby has an eventloop timer bug
+# calloop = "=0.14.4"
 
 [profile.release]
 lto = true
