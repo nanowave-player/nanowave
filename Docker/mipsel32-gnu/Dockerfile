@@ -28,7 +28,7 @@ RUN rustup component add rust-src --toolchain nightly
 COPY Docker/mipsel32-gnu/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-WORKDIR /project
+WORKDIR /home/andreas/projects/nanowave-player/nanowave
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["bash"]

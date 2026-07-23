@@ -14,7 +14,7 @@ BR2_ENABLE_LOCALE=y
 
 BR2_TOOLCHAIN_EXTERNAL=y
 BR2_TOOLCHAIN_EXTERNAL_CUSTOM=y
-BR2_TOOLCHAIN_EXTERNAL_PATH="../ingenic-toolchain/mips-gcc520-glibc222"
+BR2_TOOLCHAIN_EXTERNAL_PATH="/home/andreas/projects/nanowave-player/nanowave/buildroot/ingenic-toolchain/mips-gcc520-glibc222"
 BR2_TOOLCHAIN_EXTERNAL_CUSTOM_PREFIX="mips-linux-gnu"
 
 BR2_TOOLCHAIN_EXTERNAL_GLIBC=y

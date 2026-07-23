@@ -2,19 +2,21 @@
 
 if [ "$1" = "clean" ]; then
   docker run --rm -it \
-      -v "$PWD":/project \
-      -w /project/buildroot/buildroot-2025.02.2 \
+      -u $(id -u):$(id -g) \
+      -v "$PWD":/home/andreas/projects/nanowave-player/nanowave/ \
+      -w /home/andreas/projects/nanowave-player/nanowave/buildroot/buildroot-2025.02.2 \
       -e FORCE_UNSAFE_CONFIGURE=1 \
       hiby-r1-cross \
       make distclean
 fi
 
 docker run --rm -it \
-    -v "$PWD":/project \
-    -w /project/buildroot/buildroot-2025.02.2 \
+    -u $(id -u):$(id -g) \
+    -v "$PWD":/home/andreas/projects/nanowave-player/nanowave/ \
+    -w /home/andreas/projects/nanowave-player/nanowave/buildroot/buildroot-2025.02.2 \
     -e FORCE_UNSAFE_CONFIGURE=1 \
     hiby-r1-cross \
-    make BR2_DEFCONFIG=/project/buildroot/configs/hiby_r1_defconfig defconfig
+    make BR2_DEFCONFIG=/home/andreas/projects/nanowave-player/nanowave/buildroot/configs/hiby_r1_defconfig defconfig
 
 
 

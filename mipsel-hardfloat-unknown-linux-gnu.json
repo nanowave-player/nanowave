@@ -15,7 +15,7 @@
     ]
   },
   "linker-flavor": "gcc",
-  "linker": "buildroot/buildroot-2025.02.2/output/host/bin/mipsel-buildroot-linux-gnu-gcc",
+  "linker": "buildroot/buildroot-2025.02.2/output/host/bin/mips-linux-gnu-gcc",
   "abi": "gnu",
   "llvm-abiname": "o32",
   "llvm-args": [

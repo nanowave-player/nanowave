@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-SDK=/project/buildroot/buildroot-2025.02.2/output/host
+SDK=/home/andreas/projects/nanowave-player/nanowave/buildroot/buildroot-2025.02.2/output/host
 PREFIX=mipsel-buildroot-linux-gnu
 GCC="$SDK/bin/${PREFIX}-gcc"
 

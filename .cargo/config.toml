@@ -1,9 +1,10 @@
 [target.mipsel-hardfloat-unknown-linux-gnu]
-linker = "/home/andreas/projects/baijz/ingenic-toolchain/mips-gcc520-glibc222/bin/mips-linux-gnu-gcc"
+linker = "/home/andreas/projects/nanowave-player/nanowave/buildroot/buildroot-2025.02.2/output/host/bin/mips-linux-gnu-gcc"
 rustflags = [
     "-L",
-    "/home/andreas/projects/nanowave-player/buildroot/buildroot-2025.02.2/output/target/usr/lib",
+    "/home/andreas/projects/nanowave-player/nanowave/buildroot/buildroot-2025.02.2/output/target/usr/lib",
 ]
+
 # this seems to be required, because linker is ignored in Cross.toml
 # [target.mipsel-unknown-linux-gnu]
 #linker = "/project/buildroot/buildroot-2025.02.2/output/host/bin/mipsel-buildroot-linux-gnu-gcc"

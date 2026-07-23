@@ -23,17 +23,15 @@
 # export PKG_CONFIG_LIBDIR=$PWD/buildroot/buildroot-2025.02.2/output/target/usr/lib/pkgconfig:$PWD/buildroot/buildroot-2025.02.2/output/target/usr/share/pkgconfig
 
 # next try
-export BR2=$PWD/buildroot/buildroot-2025.02.2
-
-export PATH=$BR2/output/host/bin:$PATH
-
-export PKG_CONFIG_ALLOW_CROSS=1
-export PKG_CONFIG_SYSROOT_DIR=$BR2/output/host/mipsel-buildroot-linux-gnu/sysroot
-export PKG_CONFIG_LIBDIR=$BR2/output/host/mipsel-buildroot-linux-gnu/sysroot/usr/lib/pkgconfig:$BR2/output/host/mipsel-buildroot-linux-gnu/sysroot/usr/share/pkgconfig
-
-export CC=mips-linux-gnu-gcc
-export CXX=mips-linux-gnu-g++
-export AR=mips-linux-gnu-ar
+#export PKG_CONFIG_ALLOW_CROSS=1
+#
+#export BR2=$PWD/buildroot/buildroot-2025.02.2
+#export PATH=$BR2/output/host/bin:$PATH
+#export PKG_CONFIG_SYSROOT_DIR=$BR2/output/host/mipsel-buildroot-linux-gnu/sysroot
+#export PKG_CONFIG_LIBDIR=$BR2/output/host/mipsel-buildroot-linux-gnu/sysroot/usr/lib/pkgconfig:$BR2/output/host/mipsel-buildroot-linux-gnu/sysroot/usr/share/pkgconfig
+#export CC=mips-linux-gnu-gcc
+#export CXX=mips-linux-gnu-g++
+#export AR=mips-linux-gnu-ar
 
 #echo "CC=$CC"
 #which $CC
@@ -49,27 +47,41 @@ export AR=mips-linux-gnu-ar
 # pkg-config --cflags --libs libudev
 
 
-echo $PKG_CONFIG_SYSROOT_DIR
-echo $PKG_CONFIG_LIBDIR
-pkg-config --variable pc_path pkg-config
-
-find $BR2/output/host/mipsel-buildroot-linux-gnu/sysroot -name "fontconfig.pc" -o -name "libudev.pc"
-exit
+#echo $PKG_CONFIG_SYSROOT_DIR
+#echo $PKG_CONFIG_LIBDIR
+#pkg-config --variable pc_path pkg-config
+#
+#find $BR2/output/host/mipsel-buildroot-linux-gnu/sysroot -name "fontconfig.pc" -o -name "libudev.pc"
+#exit
 
 # fake the pc file for udev
-mkdir -p buildroot/buildroot-2025.02.2/output/staging/usr/lib/pkgconfig
-cat > buildroot/buildroot-2025.02.2/output/staging/usr/lib/pkgconfig/libudev.pc <<'EOF'
-prefix=/usr
-exec_prefix=${prefix}
-libdir=/lib
-includedir=${prefix}/include
+#mkdir -p buildroot/buildroot-2025.02.2/output/staging/usr/lib/pkgconfig
+#cat > buildroot/buildroot-2025.02.2/output/staging/usr/lib/pkgconfig/libudev.pc <<'EOF'
+#prefix=/usr
+#exec_prefix=${prefix}
+#libdir=/lib
+#includedir=${prefix}/include
+#
+#Name: libudev
+#Description: udev library
+#Version: 1.6.3
+#Libs: -L${libdir} -ludev
+#Cflags: -I${includedir}
+#EOF
 
-Name: libudev
-Description: udev library
-Version: 1.6.3
-Libs: -L${libdir} -ludev
-Cflags: -I${includedir}
-EOF
+
+export BR2=$PWD/buildroot/buildroot-2025.02.2
+export PATH=$BR2/output/host/bin:$PATH
+
+export CC_mipsel_hardfloat_unknown_linux_gnu=mipsel-linux-gcc
+export CXX_mipsel_hardfloat_unknown_linux_gnu=mipsel-linux-g++
+export AR_mipsel_hardfloat_unknown_linux_gnu=mipsel-linux-ar
+
+export STAGING_DIR=$BR2/output/host/mipsel-buildroot-linux-gnu/sysroot
+
+export PKG_CONFIG_SYSROOT_DIR="$STAGING_DIR"
+export PKG_CONFIG_LIBDIR="$STAGING_DIR/usr/lib/pkgconfig:$STAGING_DIR/usr/share/pkgconfig"
+export PKG_CONFIG_ALLOW_CROSS=1
 
 cargo +nightly build \
   --target mipsel-hardfloat-unknown-linux-gnu.json \

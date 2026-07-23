@@ -12,24 +12,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da7600e2-a4da-4669-a586-ae42a70de8de" name="Changes" comment="change to gnu">
-      <change afterPath="$PROJECT_DIR$/Docker/mipsel32-gnu/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docker/mipsel32-gnu/entrypoint.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mipsel-hardfloat-unknown-linux-gnu.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.cargo/config.toml" beforeDir="false" afterPath="$PROJECT_DIR$/.cargo/config.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cross.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cross.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docker/mipsel32/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Docker/mipsel32-musl/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docker/mipsel32/entrypoint.sh" beforeDir="false" afterPath="$PROJECT_DIR$/Docker/mipsel32-musl/entrypoint.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docker/mipsel32-gnu/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Docker/mipsel32-gnu/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docker/mipsel32-gnu/entrypoint.sh" beforeDir="false" afterPath="$PROJECT_DIR$/Docker/mipsel32-gnu/entrypoint.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build-mipsel32.sh" beforeDir="false" afterPath="$PROJECT_DIR$/build-mipsel32.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/buildroot/configs/hiby_r1_defconfig" beforeDir="false" afterPath="$PROJECT_DIR$/buildroot/configs/hiby_r1_defconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/copy-experimental.sh" beforeDir="false" afterPath="$PROJECT_DIR$/copy-experimental.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/hiby-os-info.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/hiby-os-info.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/002-build-docker.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/002-build-docker.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mipsel-hardfloat-unknown-linux-gnu.json" beforeDir="false" afterPath="$PROJECT_DIR$/mipsel-hardfloat-unknown-linux-gnu.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/003-build-buildroot-config.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/003-build-buildroot-config.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/004-build-buildroot.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/004-build-buildroot.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/999-debug-docker.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/999-debug-docker.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/005-build-buildroot-sdk.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/005-build-buildroot-sdk.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +68,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHELLCHECK.PATH": "/home/andreas/.local/share/JetBrains/RustRover2026.1/Shell Script/shellcheck",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "hiby-toolchain",
     "last_opened_file_path": "/home/andreas/projects/nanowave-player/nanowave/.experimental",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -167,7 +159,7 @@
       <workItem from="1784466455196" duration="20540000" />
       <workItem from="1784628039450" duration="128000" />
       <workItem from="1784628268484" duration="1655000" />
-      <workItem from="1784637045436" duration="45741000" />
+      <workItem from="1784637045436" duration="49678000" />
     </task>
     <servers />
   </component>
@@ -183,7 +175,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/main.rs</url>
-          <line>160</line>
+          <line>158</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
