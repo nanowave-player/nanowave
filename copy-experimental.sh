@@ -3,14 +3,15 @@
 REL_DST=".experimental/release/"
 REL_DST_LIB="${REL_DST}lib/"
 REL_SRC=""
-REL_SRC_LIB="buildroot/buildroot-2025.02.2/output/host/mipsel-buildroot-linux-musl/sysroot/"
+# REL_SRC_LIB="buildroot/buildroot-2025.02.2/output/host/mipsel-buildroot-linux-gnu/sysroot/"
+REL_SRC_LIB="buildroot/buildroot-2025.02.2/output/target/"
 REL_DST_FONTS="${REL_DST}fonts/"
 SRC_LIBS="libxkbcommon.so.0
           libinput.so.10
           libfontconfig.so.1
           libudev.so.1
           libgcc_s.so.1
-          libc.so
+          ld.so.1
           libmtdev.so.1
           libevdev.so.2
           libfreetype.so.6
@@ -18,13 +19,15 @@ SRC_LIBS="libxkbcommon.so.0
           libpng16.so.16
           libbrotlidec.so.1
           libbrotlicommon.so.1
-          "
+          libm.so.6
+          libc.so.6
+          " # libc.so
 
 
 
 mkdir -p "$REL_DST" "$REL_DST_LIB"
 
-cp target/mipsel-unknown-linux-musl/release/nanowave "$REL_DST"
+cp target/mipsel-hardfloat-unknown-linux-gnu/release/nanowave "$REL_DST"
 cp scripts/nanowave.sh "$REL_DST"
 
 for lib in $SRC_LIBS; do
@@ -50,11 +53,18 @@ cp -rp fonts/{fonts.conf,cache,ttf} "${REL_DST_FONTS}/"
 # patchelf --set-interpreter '$ORIGIN/lib/libc.so' "${REL_DST}/nanowave"
 # patchelf --set-rpath '$ORIGIN/lib' "${REL_DST}/nanowave"
 
-patchelf --set-interpreter '/usr/data/mnt/sd_0/bin/lib/libc.so' "${REL_DST}/nanowave"
-patchelf --set-rpath '/usr/data/mnt/sd_0/bin/lib' "${REL_DST}/nanowave"
+# patchelf --set-interpreter '/usr/data/mnt/sd_0/bin/lib/libc.so' "${REL_DST}/nanowave"
+
+# patchelf --set-interpreter '/usr/data/mnt/sd_0/bin/lib/ld.so.1' "${REL_DST}/nanowave"
+# patchelf --set-rpath '/usr/data/mnt/sd_0/bin/lib' "${REL_DST}/nanowave"
+
+# patchelf --set-interpreter '/tmp/bin/lib/ld.so.1' "${REL_DST}/nanowave"
+patchelf --set-rpath '/tmp/bin/lib' "${REL_DST}/nanowave"
+
 
 if [ "$1" = "push" ]; then
-  adb push .experimental/release/* /usr/data/mnt/sd_0/bin/
+  # adb push .experimental/release/* /usr/data/mnt/sd_0/bin/
+  adb push .experimental/release/* /tmp/bin/
 fi
 
 

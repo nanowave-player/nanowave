@@ -30,3 +30,4 @@ target
 /media
 /buildroot/*
 !/buildroot/configs/
+!/buildroot/overlay/

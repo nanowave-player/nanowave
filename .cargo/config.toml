@@ -1,6 +1,15 @@
+[target.mipsel-hardfloat-unknown-linux-gnu]
+linker = "/home/andreas/projects/baijz/ingenic-toolchain/mips-gcc520-glibc222/bin/mips-linux-gnu-gcc"
+rustflags = [
+    "-L",
+    "/home/andreas/projects/nanowave-player/buildroot/buildroot-2025.02.2/output/target/usr/lib",
+]
 # this seems to be required, because linker is ignored in Cross.toml
-[target.mipsel-unknown-linux-musl]
-linker = "/project/buildroot/buildroot-2025.02.2/output/host/bin/mipsel-buildroot-linux-musl-gcc"
-
-rustflags = ["-C", "link-args=-static"]
+# [target.mipsel-unknown-linux-gnu]
+#linker = "/project/buildroot/buildroot-2025.02.2/output/host/bin/mipsel-buildroot-linux-gnu-gcc"
+#rustflags = [
+#    "-C", "target-feature=+fp64",
+#    "-C", "link-arg=-mhard-float"
+#]
+# rustflags = ["-C", "link-args=-static"]
 # rustflags = ["-C", "target-feature=+crt-static"] # does not work, eudev prevents using fully static builds

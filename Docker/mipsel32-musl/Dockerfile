@@ -25,7 +25,7 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 RUN rustup toolchain install nightly
 RUN rustup component add rust-src --toolchain nightly
 
-COPY Docker/mipsel32/entrypoint.sh /entrypoint.sh
+COPY Docker/mipsel32-musl/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 WORKDIR /project

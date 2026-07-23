@@ -1,17 +1,18 @@
-[target.mipsel-unknown-linux-musl]
-image = "hiby-r1-cross:latest"
-linker = "mipsel-buildroot-linux-musl-gcc"
-rustflags = [
-    "-C", "link-arg=-static"
-]
+[target.mipsel-hardfloat-unknown-linux-gnu]
+image = "hiby-r1-cross-gnu:latest"
+
+# linker = "mipsel-buildroot-linux-gnu-gcc"
+# rustflags = [
+#    "-C", "link-arg=-static"
+# ]
 
 # rustflags = ["-C", "link-args=-static"]
 # linker = "mipsel-buildroot-linux-musl-gcc"
 
 
-# [target.mipsel-unknown-linux-musl.docker]
+# [target.mipsel-unknown-linux-gnu.docker]
 # volumes = [
-#    "./buildroot:/project/buildroot:ro",
+#   "./buildroot:/project/buildroot:ro",
 # ]
 
 
