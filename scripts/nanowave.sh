@@ -14,4 +14,4 @@ export FONTCONFIG_FILE="$DIR/fonts/fonts.conf"
 # no filter debug call
 # strace -f -yy -o trace.log ./nanowave
 
-RUST_BACKTRACE=1 ./nanowave
+LD_LIBRARY_PATH=./lib ./nanowave

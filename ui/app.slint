@@ -17,6 +17,8 @@ export component App inherits Window {
         { name: "settings", label: "Settings", icon: SlintIcons.settings },
     ];
 
+    property <int> counter: 0;
+
     property<int> columns: Math.max(1, Math.floor(root.width / 150px));
     property<int> rows: Math.max(1, Math.ceil(homeButtonItems.length / columns));
     property<length> tile-size: self.width / columns;
@@ -74,6 +76,15 @@ export component App inherits Window {
             height:25px;
         }
 
+        Rectangle {
+            width:100%;
+            height:25px;
+            background: red;
+            Text {
+                text: root.counter;
+            }
+        }
+
         Flickable {
             interactive: false;
             width: 100%;
@@ -107,6 +118,12 @@ export component App inherits Window {
                                 Text {
                                     horizontal-alignment: center;
                                     text: homeButtonItems[current-index].label;
+                                }
+                                Button {
+                                    text: "Increase counter";
+                                    clicked() => {
+                                        root.counter = root.counter + 1;
+                                    }
                                 }
                             }
                         /* } */
