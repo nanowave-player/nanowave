@@ -74,11 +74,17 @@ fn main() {
                     slint::invoke_from_event_loop(move || {
                         if let Some(app) = app.upgrade() {
                             match player_event {
+
                                 NanowavePlayerEvent::OutputText(msg) => {
                                     // app.set_output_text(msg.into());
                                 }
                                 NanowavePlayerEvent::Position(pos) => {
                                     // app.set_position(pos.into());
+                                },
+                                NanowavePlayerEvent::UpdateStatus(time) => {
+                                    let status = app.global::<SlintStatus>();
+                                    // status.set
+                                    status.set_time(time.into());
                                 }
                             }
                         }

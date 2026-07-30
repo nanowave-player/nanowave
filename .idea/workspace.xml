@@ -12,13 +12,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da7600e2-a4da-4669-a586-ae42a70de8de" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/nanowave.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nanowave.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ui/globals/SlintStatus.slint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/nanowave.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/nanowave.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/nanowave_player_service.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/nanowave_player_service.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/nanowave_player_event.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/nanowave_player_event.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui/app.slint" beforeDir="false" afterPath="$PROJECT_DIR$/ui/app.slint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/components/StatusBar.slint" beforeDir="false" afterPath="$PROJECT_DIR$/ui/components/StatusBar.slint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/navigator.slint" beforeDir="false" afterPath="$PROJECT_DIR$/ui/navigator.slint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/types.slint" beforeDir="false" afterPath="$PROJECT_DIR$/ui/globals.slint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/types/HomeButtonItem.slint" beforeDir="false" afterPath="$PROJECT_DIR$/ui/structs/HomeButtonItem.slint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/types/SlintAudioPlayer.slint" beforeDir="false" afterPath="$PROJECT_DIR$/ui/globals/SlintAudioPlayer.slint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/types/SlintIcons.slint" beforeDir="false" afterPath="$PROJECT_DIR$/ui/globals/SlintIcons.slint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/types/SlintMediaSource.slint" beforeDir="false" afterPath="$PROJECT_DIR$/ui/globals/SlintMediaSource.slint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/types/SlintMediaSourceChapter.slint" beforeDir="false" afterPath="$PROJECT_DIR$/ui/globals/SlintMediaSourceChapter.slint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/types/SlintMediaSourceItem.slint" beforeDir="false" afterPath="$PROJECT_DIR$/ui/globals/SlintMediaSourceItem.slint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/types/SlintNavigation.slint" beforeDir="false" afterPath="$PROJECT_DIR$/ui/globals/SlintNavigation.slint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/types/SlintPreferences.slint" beforeDir="false" afterPath="$PROJECT_DIR$/ui/globals/SlintPreferences.slint" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,11 +99,11 @@
       <recent name="$PROJECT_DIR$/scripts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ui/globals" />
+      <recent name="$PROJECT_DIR$/ui/structs" />
+      <recent name="$PROJECT_DIR$/.experimental/hiby_back" />
       <recent name="$PROJECT_DIR$/buildroot/overlay/board/hiby_r1" />
       <recent name="$PROJECT_DIR$/buildroot/overlay" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/.experimental" />
-      <recent name="$PROJECT_DIR$/fonts/ttf" />
     </key>
   </component>
   <component name="RunManager">
@@ -157,7 +168,7 @@
       <workItem from="1784628039450" duration="128000" />
       <workItem from="1784628268484" duration="1655000" />
       <workItem from="1784637045436" duration="53737000" />
-      <workItem from="1784902865215" duration="15177000" />
+      <workItem from="1784902865215" duration="20106000" />
     </task>
     <servers />
   </component>
@@ -173,7 +184,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/main.rs</url>
-          <line>158</line>
+          <line>163</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

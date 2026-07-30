@@ -18,23 +18,24 @@ media_source = { path = "../media_source" }
 #[target.'cfg(not(target = "mipsel-unknown-linux-musl"))'.dependencies]
 #slint = { git = "https://github.com/slint-ui/slint", branch = "master"} #, default-features=false, features=["backend-linuxkms-noseat", "renderer-software", "compat-1-2" ]}
 #[target.mipsel-unknown-linux-musl.dependencies]
-slint = { git = "https://github.com/slint-ui/slint", rev="83d873e" } #branch = "master"} # , default-features=false, features=["backend-linuxkms-noseat", "renderer-software", "compat-1-2" ]}
+slint = { git = "https://github.com/slint-ui/slint", branch="master" } #branch = "master"} # , default-features=false, features=["backend-linuxkms-noseat", "renderer-software", "compat-1-2" ]}
 # libc = "0.2.186"
 
 [build-dependencies]
 # [target.'cfg(not(target = "mipsel-unknown-linux-musl"))'.build-dependencies]
 # slint-build = { git = "https://github.com/slint-ui/slint", branch = "master"} #, default-features=false, features=[ "renderer-software", "compat-1-18"]}
 # [target.mipsel-unknown-linux-musl.build-dependencies]
-slint-build = { git = "https://github.com/slint-ui/slint", rev="83d873e"} #, branch = "master", default-features=false, features=[ "renderer-software", "compat-1-18"]}
+slint-build = { git = "https://github.com/slint-ui/slint", branch="master"} #, branch = "master", default-features=false, features=[ "renderer-software", "compat-1-18"]}
 
 
 
 
 [patch.crates-io]
-fontique = { git = "https://github.com/linebender/parley.git", rev="167da20"} # branch = "main" }
-parley = { git = "https://github.com/linebender/parley.git", rev="167da20"} # branch = "main" }
-parlance = { git = "https://github.com/linebender/parley.git", rev="167da20"} # branch = "main" }
-cpal = {git = "https://github.com/RustAudio/cpal.git", branch = "fix/32bit-atomic-u64"}
+# 38809fb ist zu neu
+#fontique = { git = "https://github.com/linebender/parley.git",  rev="167da20" } # , rev="167da20"
+#parley = { git = "https://github.com/linebender/parley.git",  rev="167da20" }
+#parlance = { git = "https://github.com/linebender/parley.git",  rev="167da20" }
+#cpal = {git = "https://github.com/RustAudio/cpal.git", branch = "fix/32bit-atomic-u64"}
 # hiby has an eventloop timer bug
 # calloop = "=0.14.4"
 

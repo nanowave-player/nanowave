@@ -1,8 +1,11 @@
 import "./fonts/Roboto-Regular.ttf";
 
 import { VerticalBox, Button, Palette, Slider, GridBox, HorizontalBox } from "std-widgets.slint";
-import {HomeButtonItem, SlintIcons, SlintNavigation, SlintPreferences} from "./types.slint";
+import {SlintIcons, SlintNavigation, SlintPreferences, SlintStatus} from "./globals.slint";
+import {HomeButtonItem} from "./structs.slint";
 import {StatusBar} from "./components.slint";
+
+export { SlintNavigation, SlintPreferences, SlintStatus }
 
 export component App inherits Window {
     width: 368px;
@@ -72,6 +75,7 @@ export component App inherits Window {
         padding: 0;
         StatusBar {
             visible: SlintPreferences.enable-statusbar;
+            time: SlintStatus.time;
             width:100%;
             height:25px;
         }

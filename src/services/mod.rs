@@ -43,15 +43,13 @@ pub async fn background_services(
     _rx: Receiver<NanowavePlayerCommand>,
 ) {
     println!("background_services");
-    let timer_task = tokio::spawn(async move {
-        println!("timer_task");
+    let time_task = tokio::spawn(async move {
+        println!("time task");
 
         loop {
-            println!("timer update");
-
             let now = SystemTime::now();
             let _r = tx
-                .send(NanowavePlayerEvent::Position(format_time(now)));
+                .send(NanowavePlayerEvent::UpdateStatus(format_time(now)));
             // .await;
             // Timer::after(Duration::from_secs(1)).await;
             tokio::time::sleep(Duration::from_secs(1)).await;
@@ -62,7 +60,7 @@ pub async fn background_services(
 
 
     let _ = tokio::join!(
-        timer_task
+        time_task
     );
 
 
